@@ -1,35 +1,27 @@
 {
   "project_info": {
-    "project_number": "3609992885",
-    "firebase_url": "https://mysahara-18032.firebaseio.com",
-    "project_id": "mysahara-18032",
-    "storage_bucket": "mysahara-18032.appspot.com"
+    "project_number": "551581431253",
+    "firebase_url": "https://mysahara-499ed.firebaseio.com",
+    "project_id": "mysahara-499ed",
+    "storage_bucket": "mysahara-499ed.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:3609992885:android:173316829dc94e42",
+        "mobilesdk_app_id": "1:551581431253:android:173316829dc94e42",
         "android_client_info": {
           "package_name": "com.sfit.sahara.mysahara"
         }
       },
       "oauth_client": [
         {
-          "client_id": "3609992885-nq4r7hra49ou4jqo2oafas1sv1q28v48.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.sfit.sahara.mysahara",
-            "certificate_hash": "5aea02ff5b1f3add40d30a866ee97fdd9b8c8b3c"
-          }
-        },
-        {
-          "client_id": "3609992885-oh4goi5fmakd6kmmggqav7j9l1rs8s08.apps.googleusercontent.com",
+          "client_id": "551581431253-2s3qratbnlejp92kpu0mii8egh9n8fjh.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyABVnNDgr77BJkNOKtA2V02UWWiaXoB0kU"
+          "current_key": "AIzaSyCAHif85kBs-dYiMhuki8E21t1zsjJQ5ik"
         }
       ],
       "services": {
@@ -37,13 +29,8 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "3609992885-oh4goi5fmakd6kmmggqav7j9l1rs8s08.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "status": 1,
+          "other_platform_oauth_client": []
         },
         "ads_service": {
           "status": 2
