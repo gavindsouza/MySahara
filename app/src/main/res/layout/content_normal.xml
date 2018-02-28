@@ -34,4 +34,22 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="parent"
         app:layout_constraintVertical_bias="0.10" />
+
+    <TextView
+        android:id="@+id/online_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="36sp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="50sp"
+        android:layout_marginTop="350sp"
+        android:fontFamily="sans-serif-condensed"
+        android:text="@string/online_status"
+        android:textAlignment="center"
+        android:textColor="@android:color/holo_orange_dark"
+        android:textColorHighlight="@color/colorPrimaryDark"
+        android:textColorHint="@color/common_google_signin_btn_text_dark_focused"
+        android:textSize="36sp"
+        android:visibility="visible"
+        tools:text="Current Status:" />
 </RelativeLayout>
