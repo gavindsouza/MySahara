@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">MySahara</string>
+    <string name="title_activity_normal">NormalActivity</string>
+    <string name="log_out">Log Out</string>
+</resources>
