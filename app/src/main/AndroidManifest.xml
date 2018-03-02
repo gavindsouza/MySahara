@@ -9,21 +9,32 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity">
+
+            <!--
+            intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter
+            -->
+        </activity>
         <activity
             android:name=".NormalActivity"
             android:label="@string/title_activity_normal"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".afterLogin">
+        <activity android:name=".first_page">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".oldPersonHome" />
+        <activity android:name=".third_page_senior" />
         <activity android:name=".oldPerson2" />
-        <activity android:name=".details"></activity>
+        <activity android:name=".details" />
+        <activity android:name=".second_page_login" />
+        <activity android:name=".signup" />
+        <activity android:name=".junior_fourth_page"></activity>
     </application>
 
 </manifest>

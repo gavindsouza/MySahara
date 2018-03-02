@@ -3,13 +3,12 @@ package com.sfit.sahara.mysahara;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.telecom.Call;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class afterLogin extends AppCompatActivity {
+public class first_page extends AppCompatActivity {
 
     Button btnAdd;
     EditText etAddCode;
@@ -17,7 +16,7 @@ public class afterLogin extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_after_login);
+        setContentView(R.layout.first_page);
 
         btnAdd = findViewById(R.id.btnAdd);
         etAddCode = findViewById(R.id.etAddCode);
@@ -26,7 +25,7 @@ public class afterLogin extends AppCompatActivity {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(afterLogin.this,details.class);
+                Intent i = new Intent(first_page.this,details.class);
                 startActivity(i);
             }
         });
@@ -38,11 +37,11 @@ public class afterLogin extends AppCompatActivity {
 
                 //check if code is matching with code in database
                 if (true){
-                    Intent i = new Intent(afterLogin.this,oldPersonHome.class);
+                    Intent i = new Intent(first_page.this,third_page_senior.class);
                     startActivity(i);
                 }
                 else{
-                    Toast.makeText(afterLogin.this, "Please enter the correct code", Toast.LENGTH_LONG).show();
+                    Toast.makeText(first_page.this, "Please enter the correct code", Toast.LENGTH_LONG).show();
                 }
             }
         });

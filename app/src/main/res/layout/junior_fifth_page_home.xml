@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.sfit.sahara.mysahara.NormalActivity"
-    tools:showIn="@layout/activity_normal">
+    tools:context="com.sfit.sahara.mysahara.NormalActivity">
 
     <Button
         android:id="@+id/log_out"
@@ -27,6 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -42,8 +42,9 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="50sp"
         android:layout_marginTop="350sp"
+        android:contentDescription="Current Status:"
         android:fontFamily="sans-serif-condensed"
-        android:text="@string/online_status"
+        android:text="Current Status:"
         android:textAlignment="center"
         android:textColor="@android:color/holo_orange_dark"
         android:textColorHighlight="@color/colorPrimaryDark"
