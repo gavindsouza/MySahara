@@ -5,20 +5,26 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class NormalActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_normal);
-
+        setContentView(R.layout.junior_fifth_page_home);
         Button yourButton = (Button) findViewById(R.id.log_out);
+        TextView text = (TextView) findViewById(R.id.online_status);
+        Integer online = 1;
         yourButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 startActivity(new Intent( NormalActivity.this, MainActivity.class));
             }
         });
+        if (online==1)
+            text.setText("Current Status: online");
+        else
+            text.setText("Current Status: offline");
     }
 
 }
