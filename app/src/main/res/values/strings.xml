@@ -3,4 +3,9 @@
     <string name="title_activity_normal">NormalActivity</string>
     <string name="log_out">Log Out</string>
     <string name="online_status">TextView</string>
+    <string name="add_members">+ Add Members</string>
+    <string name="or">OR</string>
+    <string name="add_code">ADD CODE</string>
+    <string name="submit">Submit</string>
+    <string name="hi_noldie_name_nsurname">HI OLDIE_NAME SURNAME</string>
 </resources>
