@@ -9,4 +9,5 @@
     <string name="submit">Submit</string>
     <string name="hi_noldie_name_nsurname">HI OLDIE_NAME SURNAME</string>
     <string name="button">Button</string>
+    <string name="title_activity_junior_add_location">Map</string>
 </resources>

@@ -6,4 +6,21 @@
     android:layout_height="match_parent"
     tools:context="com.sfit.sahara.mysahara.oldPerson2">
 
+    <EditText
+        android:id="@+id/enter_code"
+        android:layout_width="254dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Enter Member Code"
+        android:inputType="textPersonName"
+        tools:layout_editor_absoluteX="65dp"
+        tools:layout_editor_absoluteY="83dp" />
+
+    <Button
+        android:id="@+id/verify"
+        android:layout_width="115dp"
+        android:layout_height="wrap_content"
+        android:text="Verify"
+        tools:layout_editor_absoluteX="130dp"
+        tools:layout_editor_absoluteY="231dp" />
 </android.support.constraint.ConstraintLayout>
