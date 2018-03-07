@@ -25,7 +25,7 @@ public class first_page extends AppCompatActivity {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(first_page.this,details.class);
+                Intent i = new Intent(first_page.this,junior_third_page_details.class);
                 startActivity(i);
             }
         });
@@ -37,7 +37,7 @@ public class first_page extends AppCompatActivity {
 
                 //check if code is matching with code in database
                 if (true){
-                    Intent i = new Intent(first_page.this,third_page_senior.class);
+                    Intent i = new Intent(first_page.this,senior_first_page.class);
                     startActivity(i);
                 }
                 else{

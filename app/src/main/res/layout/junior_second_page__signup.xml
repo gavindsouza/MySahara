@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:maxWidth="200dp"
     android:minWidth="200dp"
-    tools:context="com.sfit.sahara.mysahara.signup">
+    tools:context="com.sfit.sahara.mysahara.junior_second_page__signup">
 
     <EditText
         android:id="@+id/editText"
