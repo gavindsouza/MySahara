@@ -6,18 +6,18 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class second_page_login extends Activity {
-
+public class junior_second_page__signup extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.junior_second_page_login);
-        Button sup = (Button) findViewById(R.id.signup);
-        sup.setOnClickListener(new View.OnClickListener() {
+        setContentView(R.layout.junior_second_page__signup);
+        Button sback = (Button) findViewById(R.id.back);
+        sback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(second_page_login.this,signup.class));
+                startActivity(new Intent(junior_second_page__signup.this,junior_second_page_login.class));
             }
         });
     }
+
 }

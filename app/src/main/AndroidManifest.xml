@@ -26,7 +26,7 @@
             -->
         </activity>
         <activity
-            android:name=".NormalActivity"
+            android:name=".junior_fifth_page_home"
             android:label="@string/title_activity_normal"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".first_page">
@@ -36,11 +36,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".third_page_senior" />
-        <activity android:name=".oldPerson2" />
-        <activity android:name=".details" />
-        <activity android:name=".second_page_login" />
-        <activity android:name=".signup" />
+        <activity android:name=".senior_first_page" />
+        <activity android:name=".junior_third_page_details" />
+        <activity android:name=".junior_second_page_login" />
+        <activity android:name=".junior_second_page__signup" />
         <activity android:name=".junior_fourth_page" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -56,7 +55,8 @@
 
         <activity
             android:name=".junior_add_location"
-            android:label="@string/title_activity_junior_add_location"></activity>
+            android:label="@string/title_activity_junior_add_location" />
+        <activity android:name=".junior_second_page_home"></activity>
     </application>
 
 </manifest>

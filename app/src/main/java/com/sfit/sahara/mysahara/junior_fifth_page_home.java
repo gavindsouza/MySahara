@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class NormalActivity extends AppCompatActivity {
+public class junior_fifth_page_home extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,7 +18,7 @@ public class NormalActivity extends AppCompatActivity {
         Integer online = 1;
         yourButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                startActivity(new Intent( NormalActivity.this, MainActivity.class));
+                startActivity(new Intent( junior_fifth_page_home.this, MainActivity.class));
             }
         });
         if (online==1)

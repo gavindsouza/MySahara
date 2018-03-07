@@ -17,7 +17,7 @@
         android:textSize="20sp" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/btnAdd"
@@ -30,7 +30,7 @@
         android:id="@+id/etAddCode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView"
+        android:layout_below="@+id/username"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="82dp"
         android:ems="10"

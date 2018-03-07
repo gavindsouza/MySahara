@@ -3,7 +3,7 @@ package com.sfit.sahara.mysahara;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class details extends AppCompatActivity {
+public class junior_third_page_details extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
