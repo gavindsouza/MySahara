@@ -39,7 +39,7 @@
         <activity android:name=".senior_first_page" />
         <activity android:name=".junior_third_page_details" />
         <activity android:name=".junior_second_page_login" />
-        <activity android:name=".junior_second_page__signup" />
+        <activity android:name=".junior_second_page_signup" />
         <activity android:name=".junior_fourth_page" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.

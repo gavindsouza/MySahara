@@ -16,7 +16,7 @@ public class junior_second_page_login extends Activity {
         sup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(junior_second_page_login.this,junior_second_page__signup.class));
+                startActivity(new Intent(junior_second_page_login.this,junior_second_page_signup.class));
             }
         });
     }

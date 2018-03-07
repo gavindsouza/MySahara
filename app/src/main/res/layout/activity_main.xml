@@ -25,4 +25,13 @@
         android:layout_marginTop="139dp"
         android:text="@string/button" />
 
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/buttons_id"
+        android:layout_marginTop="17dp"
+        android:scrollbars="horizontal|vertical"
+        tools:listitem="@layout/activity_junior_add_location" />
+
 </RelativeLayout>
