@@ -88,7 +88,6 @@
         android:layout_alignEnd="@+id/etConfirmPass"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="28dp"
-        android:enabled="false"
         android:text="Signup" />
 
     <TextView
