@@ -8,113 +8,95 @@
     android:minWidth="200dp"
     tools:context="com.sfit.sahara.mysahara.junior_second_page__signup">
 
+
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/etFname"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvWelcome"
+        android:layout_marginEnd="19dp"
+        android:layout_marginTop="29dp"
+        android:layout_toStartOf="@+id/etLname"
+        android:ems="10"
+        android:hint="First name"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/etLname"
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/etFname"
+        android:layout_alignBottom="@+id/etFname"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="23dp"
+        android:ems="10"
+        android:hint="Last name"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/etContact"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/etFname"
+        android:layout_below="@+id/etFname"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:hint="Contact No."
+        android:inputType="phone" />
+
+    <EditText
+        android:id="@+id/etUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/etContact"
+        android:layout_below="@+id/etContact"
+        android:layout_marginTop="46dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Enter username" />
+
+    <EditText
+        android:id="@+id/etPass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/etUsername"
+        android:layout_below="@+id/etUsername"
+        android:layout_marginTop="22dp"
+        android:ems="10"
+        android:hint="Enter password"
+        android:inputType="textPassword" />
+
+    <EditText
+        android:id="@+id/etConfirmPass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/etPass"
+        android:layout_below="@+id/etPass"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:hint="Re-Enter password"/>
+
+    <Button
+        android:id="@+id/btnSignup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/etConfirmPass"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="28dp"
+        android:text="Signup" />
+
+    <TextView
+        android:id="@+id/tvWelcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
+        android:layout_alignStart="@+id/etFname"
+        android:layout_marginStart="49dp"
         android:layout_marginTop="22dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Sign Up"
+        android:text="WELCOME TO SAHARA!"
         android:textAlignment="center"
-        android:textSize="30sp" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/editText"
-        android:layout_below="@+id/editText"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="28dp"
-        android:background="@drawable/border"
-        android:maxWidth="200dp"
-        android:minHeight="20dp"
-        android:minWidth="140dp"
-        android:padding="5dp"
-        android:text=" First Name"
-        android:textSize="24sp" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView2"
-        android:layout_alignBottom="@+id/textView2"
-        android:layout_alignEnd="@+id/editText"
-        android:layout_marginEnd="12dp"
-        android:minWidth="160dp"
-        android:padding="5dp"
-        android:background="@drawable/border"
-        android:text=" Last Name"
-        android:textSize="24sp" />
-
-    <EditText
-        android:id="@+id/editText2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/textView2"
-        android:layout_below="@+id/textView2"
-        android:layout_marginTop="31dp"
-        android:background="@drawable/border"
-        android:ems="10"
-        android:hint="Phone Number"
-        android:inputType="phone"
-        android:padding="5dp"
-        android:textSize="24sp" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/editText2"
-        android:layout_alignStart="@+id/editText2"
-        android:layout_below="@+id/editText2"
-        android:layout_marginTop="31dp"
-        android:padding="5dp"
-        android:background="@drawable/border"
-        android:text="Username"
-        android:textSize="24sp" />
-
-    <EditText
-        android:id="@+id/editText6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/textView2"
-        android:layout_alignStart="@+id/textView4"
-        android:layout_below="@+id/textView4"
-        android:layout_marginTop="18dp"
-        android:ems="10"
-        android:hint="Password"
-        android:background="@drawable/border"
-        android:inputType="textPassword"
-        android:padding="5dp"
-        android:textSize="24sp" />
-
-    <EditText
-        android:id="@+id/editText8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/editText6"
-        android:layout_alignEnd="@+id/editText"
-        android:layout_alignStart="@+id/textView3"
-        android:ems="10"
-        android:background="@drawable/border"
-        android:hint="Confirm Pwd"
-        android:inputType="textPassword"
-        android:padding="5dp"
-        android:textSize="24sp" />
-
-    <Button
-        android:id="@+id/back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/editText6"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="42dp"
-        android:text="back"
-        android:textSize="24sp" />
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
 </RelativeLayout>
