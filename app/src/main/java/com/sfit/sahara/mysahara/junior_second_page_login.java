@@ -36,8 +36,9 @@ public class junior_second_page_login extends Activity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                db=FirebaseFirestore.getInstance();
-                db.collection("sahara").document("users").collection(user).document("Data").getFirestore();
+                //db=FirebaseFirestore.getInstance();
+                //db.collection("sahara").document("users").collection(user).document("Data").getFirestore();
+                startActivity(new Intent(junior_second_page_login.this,junior_second_page_home.class));
             }
         });
     }
