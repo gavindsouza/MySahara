@@ -10,4 +10,9 @@
     <string name="hi_noldie_name_nsurname">HI OLDIE_NAME SURNAME</string>
     <string name="button">Button</string>
     <string name="title_activity_junior_add_location">Map</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="login">Login</string>
+    <string name="back">Back</string>
+    <string name="password">Password</string>
+    <string name="username">Username</string>
 </resources>

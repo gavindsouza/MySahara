@@ -16,7 +16,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+
+        <activity android:name=".MainActivity"/> <!--test-->
 
             <!--
             intent-filter>
@@ -24,22 +25,27 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter
             -->
-        </activity>
         <activity
             android:name=".junior_fifth_page_home"
             android:label="@string/title_activity_normal"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity android:name=".first_page">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".senior_first_page" />
+
+        <activity android:name=".senior_first_page">
+        </activity>
+
         <activity android:name=".junior_third_page_details" />
+
         <activity android:name=".junior_second_page_login" />
+
         <activity android:name=".junior_second_page_signup" />
+
         <activity android:name=".junior_fourth_page" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
