@@ -1,66 +1,87 @@
 package com.sfit.sahara.mysahara;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
 public class junior_second_page_signup extends Activity {
     FirebaseFirestore db;
-    final EditText fname = (EditText) findViewById(R.id.etFname);
-    final EditText lname = (EditText) findViewById(R.id.etLname);
-    final EditText contact = (EditText) findViewById(R.id.etContact);
-    final EditText username = (EditText) findViewById(R.id.etUsername);
-    final EditText password = (EditText) findViewById(R.id.etPass);
-    final EditText confirm = (EditText) findViewById(R.id.etConfirmPass);
-    final Button signup =(Button) findViewById(R.id.btnSignup);
-
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.junior_second_page_signup);
 
-        final String f_name = fname.getText().toString();
-        final String l_name = lname.getText().toString();
-        final String contact_num = contact.getText().toString();
-        final String user = username.getText().toString();
-        final String pass = password.getText().toString();
-        final String confirm_pass = confirm.getText().toString();
+        db=FirebaseFirestore.getInstance();
+
+        final EditText fname = (EditText) findViewById(R.id.etFname);
+        final EditText lname = (EditText) findViewById(R.id.etLname);
+        final EditText contact = (EditText) findViewById(R.id.etContact);
+        final EditText username = (EditText) findViewById(R.id.etUsername);
+        final EditText password = (EditText) findViewById(R.id.etPass);
+        final EditText confirm = (EditText) findViewById(R.id.etConfirmPass);
+        final Button signup =(Button) findViewById(R.id.btnSignup);
 
         signup.setEnabled(false);
-        //if((f_name!=null)&&(contact_num!=null)&&(username!=null)&&(password!=null)&&(confirm!=null))
 
         confirm.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
             @Override
             public void afterTextChanged(Editable editable) {
-                    if(pass.equals(confirm_pass))
-                        signup.setEnabled(true);
-            }
-        });
+                final String pass = password.getText().toString();
+                String confirm_pass = confirm.getText().toString();
+                final String f_name = fname.getText().toString();
+                final String l_name = lname.getText().toString();
+                final String contact_num = contact.getText().toString();
+                final String user = username.getText().toString();
 
-        signup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Map<String, Object> m=new HashMap<>();
-                m.put("First Name",f_name);
-                m.put("Last Name",l_name);
-                m.put("Contact",contact_num);
-                m.put("Username",user);
-                m.put("Password",pass);
-                db.collection("sahara").document("users").set(m);
+                if (pass.equals(confirm_pass)) { /*&&(!f_name.isEmpty())&&(!contact_num.isEmpty())&&(!user.isEmpty())&&(!pass.isEmpty())&&(!confirm_pass.isEmpty())*/
+                    signup.setEnabled(true);
+                    signup.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Map<String, Object> m = new HashMap<>();
+                            m.put("First Name", f_name);
+                            m.put("Last Name", l_name);
+                            m.put("Contact", contact_num);
+                            m.put("Username", user);
+                            m.put("Password", pass);
+                            db.collection("sahara").document("users").collection(user).document("data").set(m).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast success = Toast.makeText(getApplicationContext(),"Account Created, Login now",Toast.LENGTH_LONG);
+                                    success.setGravity(Gravity.BOTTOM|Gravity.CENTER,0,0);
+                                    success.show();
+                                    startActivity(new Intent(junior_second_page_signup.this,junior_second_page_login.class));
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast failure = Toast.makeText(getApplicationContext(),"Something went Wrong",Toast.LENGTH_SHORT);
+                                    failure.setGravity(Gravity.BOTTOM|Gravity.CENTER,0,0);
+                                    failure.show();
+                                }
+                            });
+                        }
+                    });
+                }
             }
         });
     }
