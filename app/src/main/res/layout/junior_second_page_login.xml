@@ -2,17 +2,18 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.sfit.sahara.mysahara.junior_second_page_login"
-    android:id="@+id/relativeLayout">
+    tools:context="com.sfit.sahara.mysahara.junior_second_page_login">
 
     <ImageButton
         android:id="@+id/imageButton2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/login"
-        android:layout_alignParentBottom="false"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="34dp"
+        android:layout_toEndOf="@+id/login"
         android:baselineAlignBottom="false"
         android:contentDescription="logo"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -22,12 +23,15 @@
 
     <EditText
         android:id="@+id/username"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100sp"
+        android:layout_alignStart="@+id/li"
+        android:layout_below="@+id/li"
+        android:layout_marginTop="27dp"
         android:background="@drawable/border"
         android:hint="@string/username"
         android:inputType="text"
+        android:minWidth="250dp"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -38,15 +42,18 @@
 
     <EditText
         android:id="@+id/password"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="140sp"
+        android:layout_alignStart="@+id/username"
+        android:layout_below="@+id/username"
+        android:layout_marginTop="26dp"
         android:background="@drawable/border"
         android:ems="10"
         android:hint="@string/password"
         android:inputType="textPassword"
         android:maxHeight="10dp"
         android:minHeight="10dp"
+        android:minWidth="250dp"
         android:padding="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
@@ -56,64 +63,60 @@
         tools:layout_editor_absoluteY="311dp" />
 
     <TextView
+        android:id="@+id/li"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/imageButton2"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="15dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Login"
+        android:text=" Login"
+        android:textAlignment="textStart"
         android:textSize="24sp"
         app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton2" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:padding="10dp"
-        android:text="OR"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/signup"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
-
-    <Button
-        android:id="@+id/signup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="300sp"
-        android:text="@string/sign_up"
-        android:textSize="18sp"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
-
-    <Button
-        android:id="@+id/back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="150sp"
-        android:layout_marginRight="350sp"
-        android:layout_marginTop="300sp"
-        android:text="@string/back"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/imageButton2"
+        tools:textColor="@color/common_google_signin_btn_text_dark_focused" />
 
     <Button
         android:id="@+id/login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="200sp"
+        android:layout_alignStart="@+id/password"
+        android:layout_below="@+id/password"
+        android:layout_marginTop="42dp"
         android:text="@string/login"
+        android:textSize="18sp"
         android:visibility="visible"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/login"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="11dp"
+        android:minWidth="50dp"
+        android:text="  OR"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        android:textSize="24sp" />
+
+    <Button
+        android:id="@+id/signup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/password"
+        android:layout_below="@+id/textView3"
+        android:layout_marginTop="28dp"
+        android:minWidth="150dp"
+        android:text="Sign up"
+        android:textSize="18sp" />
 
 </RelativeLayout>
