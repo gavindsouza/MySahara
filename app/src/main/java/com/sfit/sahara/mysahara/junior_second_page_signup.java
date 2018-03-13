@@ -63,13 +63,13 @@ public class junior_second_page_signup extends Activity {
                             m.put("Contact", contact_num);
                             m.put("Username", user);
                             m.put("Password", pass);
-                            db.collection("sahara").document("users").collection(user).document("data").set(m).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            db.collection("users").document(user).set(m).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                     Toast success = Toast.makeText(getApplicationContext(),"Account Created, Login now",Toast.LENGTH_LONG);
                                     success.setGravity(Gravity.BOTTOM|Gravity.CENTER,0,0);
                                     success.show();
-                                    startActivity(new Intent(junior_second_page_signup.this,junior_second_page_login.class));
+                                    startActivity(new Intent(junior_second_page_signup.this,junior_third_page_details.class));
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
