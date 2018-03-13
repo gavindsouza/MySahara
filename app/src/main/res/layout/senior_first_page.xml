@@ -14,7 +14,7 @@
         android:layout_margin="5dp"
         android:gravity="center"
         android:lineSpacingMultiplier="1.2"
-        android:text="@string/hi_noldie_name_nsurname"
+        android:text=""
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textColor="@android:color/holo_blue_light"
