@@ -6,21 +6,56 @@
     android:layout_height="match_parent"
     tools:context="com.sfit.sahara.mysahara.junior_second_page_home">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="16dp"
-        android:text="this page has nothing going on....maybe just delete it and link junior_third_page_details.xml"
-        app:layout_constraintRight_toRightOf="parent"
-        tools:layout_editor_absoluteY="121dp" />
-
     <Button
         android:id="@+id/changescreen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="204dp"
-        android:text="Button" />
+        android:layout_alignEnd="@+id/phone"
+        android:layout_below="@+id/phone"
+        android:layout_marginTop="60dp"
+        android:text="Next" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/changescreen"
+        android:layout_alignBottom="@+id/changescreen"
+        android:layout_alignStart="@+id/phone"
+        android:text="Submit" />
+
+    <EditText
+        android:id="@+id/fname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="72dp"
+        android:ems="10"
+        android:hint="Enter First Name"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/lname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/fname"
+        android:layout_below="@+id/fname"
+        android:layout_marginTop="35dp"
+        android:ems="10"
+        android:hint="Enter Last Name"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/lname"
+        android:layout_below="@+id/lname"
+        android:layout_marginTop="49dp"
+        android:ems="10"
+        android:hint="Enter Emergency Contact"
+        android:inputType="phone" />
+
 </RelativeLayout>
