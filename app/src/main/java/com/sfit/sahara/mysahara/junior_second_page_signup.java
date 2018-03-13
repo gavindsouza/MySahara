@@ -63,6 +63,8 @@ public class junior_second_page_signup extends Activity {
                             m.put("Contact", contact_num);
                             m.put("Username", user);
                             m.put("Password", pass);
+                            m.put("Senior name","" );
+                            m.put("Senior last name","" );
                             db.collection("users").document(user).set(m).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {

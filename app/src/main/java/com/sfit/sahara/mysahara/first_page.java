@@ -18,11 +18,20 @@ public class first_page extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.first_page);
 
-        btnAdd = findViewById(R.id.btnAdd);
+        Button btnlogin = findViewById(R.id.btnlogin);
+        Button btnsignup = findViewById(R.id.btnsignup);
         etAddCode = findViewById(R.id.etAddCode);
         btnSubmit = findViewById(R.id.btnSubmit);
 
-        btnAdd.setOnClickListener(new View.OnClickListener() {
+        btnsignup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(first_page.this,junior_second_page_signup.class);
+                startActivity(i);
+            }
+        });
+
+        btnlogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(first_page.this,junior_second_page_login.class);
