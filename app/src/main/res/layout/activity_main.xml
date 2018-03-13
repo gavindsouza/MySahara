@@ -7,7 +7,7 @@
     tools:context="com.sfit.sahara.mysahara.MainActivity">
 
     <TextView
-        android:id="@+id/username"
+        android:id="@+id/or"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hello World!"
@@ -20,7 +20,7 @@
         android:id="@+id/buttons_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/username"
+        android:layout_below="@+id/or"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="139dp"
         android:text="@string/button" />
