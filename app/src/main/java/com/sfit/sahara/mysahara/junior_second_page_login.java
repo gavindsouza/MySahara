@@ -13,9 +13,12 @@ import com.google.android.gms.common.api.Api;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -23,7 +26,7 @@ import java.util.Map;
 import static android.content.ContentValues.TAG;
 
 public class junior_second_page_login extends Activity {
-    FirebaseFirestore db;
+    FirebaseFirestore db=FirebaseFirestore.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,10 +34,9 @@ public class junior_second_page_login extends Activity {
 
         Button login = (Button)findViewById(R.id.login);
         Button signup = (Button) findViewById(R.id.signup);
-        EditText username=(EditText)findViewById(R.id.username);
-        EditText password=(EditText)findViewById(R.id.password);
-        final String user=username.getText().toString();
-        final String pass=password.getText().toString();
+        final EditText username=(EditText)findViewById(R.id.username);
+        final EditText password=(EditText)findViewById(R.id.password);
+
 
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,8 +48,9 @@ public class junior_second_page_login extends Activity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                db=FirebaseFirestore.getInstance();
-                DocumentReference ref = db.collection("sahara").document("users");
+                final String user=username.getText().toString();
+                final String pass=password.getText().toString();
+                DocumentReference ref =db.collection("users").document(user);
                 ref.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -55,7 +58,10 @@ public class junior_second_page_login extends Activity {
                             DocumentSnapshot document = task.getResult();
                             if (document != null && document.exists()) {
                                 Log.d(TAG, "DocumentSnapshot data: " + document.getData());
-                                startActivity(new Intent(junior_second_page_login.this,junior_second_page_home.class));
+                                if(document.get("Password").equals(pass)) {
+                                    startActivity(new Intent(junior_second_page_login.this, junior_second_page_home.class));
+                                }else
+                                    Log.d(TAG,"Incorrect Password");
                             } else {
                                 Log.d(TAG, "No such document");
                             }
@@ -64,8 +70,6 @@ public class junior_second_page_login extends Activity {
                         }
                     }
                 });
-
-
             }
         });
     }
