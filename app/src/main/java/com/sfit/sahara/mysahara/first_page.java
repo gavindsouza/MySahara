@@ -57,36 +57,28 @@ public class first_page extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 final String code = etAddCode.getText().toString();
-
+                //final int flag;
                 CollectionReference usersRef = db.collection("users");
-                //check if code is matching with code in database
-                usersRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                //check if code is matching with code in database)
+                usersRef.whereEqualTo("Code", code).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            int flag= 0;
-                           for (DocumentSnapshot document : task.getResult()) {
-                                String codeindb = document.getString("Code");
-                                if (code.equals(codeindb)) {
-                                    flag = 1;
-                                    Intent i = new Intent(first_page.this,senior_first_page.class);
-                                    String sfname = document.getString("Senior first name");
-                                    i.putExtra("sfname",sfname);
-                                    String slname = document.getString("Senior last name");
-                                    i.putExtra("slname",slname);
-                                    startActivity(i);
-                                    break;
-                                }
-                           }
-                           if(flag!=1)
-                            Toast.makeText(first_page.this, "Please enter the correct code", Toast.LENGTH_SHORT).show();
-
+                            for (DocumentSnapshot document : task.getResult()) {
+                                String sfname = document.getString("Senior First Name");
+                                String slname = document.getString("Senior Last Name");
+                                //Log.d(TAG, document.getId() + " => " + document.getData());
+                                Intent i = new Intent(first_page.this,senior_first_page.class);
+                                i.putExtra("sfname",sfname);
+                                i.putExtra("slname",slname);
+                                startActivity(i);
+                                break;
+                            }
                         } else {
-                            Log.d("TAG", "Error getting documents: ", task.getException());
+                                    Log.d(TAG, "Error getting documents: ", task.getException());
                         }
                     }
                 });
-
             }
         });
 
