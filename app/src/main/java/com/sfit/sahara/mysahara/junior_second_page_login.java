@@ -1,7 +1,9 @@
 package com.sfit.sahara.mysahara;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.Editable;
@@ -22,6 +24,7 @@ import static android.content.ContentValues.TAG;
 
 public class junior_second_page_login extends Activity {
     FirebaseFirestore db=FirebaseFirestore.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +34,14 @@ public class junior_second_page_login extends Activity {
         final EditText username=(EditText)findViewById(R.id.or);
         final EditText password=(EditText)findViewById(R.id.password);
         login.setEnabled(false);
+        try {
+            SharedPreferences user = getSharedPreferences("UserData", MODE_PRIVATE);
+            String um = user.getString("Username", null);
+            String pass = user.getString("Password", null);
+            if (!um.isEmpty())
+                startActivity(new Intent(junior_second_page_login.this, junior_second_page_after_login_signup.class));
+            Toast.makeText(getApplicationContext(), um + pass, Toast.LENGTH_LONG).show();
+        }catch (Exception e){}
 
         password.addTextChangedListener(new TextWatcher() {
                 @Override
@@ -62,7 +73,18 @@ public class junior_second_page_login extends Activity {
                             if (document != null && document.exists()) {
                                 Log.d(TAG, "DocumentSnapshot data: " + document.getData());
                                 if(document.get("Password").equals(pass)) {
-                                    startActivity(new Intent(junior_second_page_login.this, junior_second_page_addmember.class));
+
+                                    SharedPreferences userdata = getSharedPreferences("UserData", Context.MODE_PRIVATE);
+                                    SharedPreferences.Editor edit = userdata.edit();
+                                    edit.putString("Username",document.getString("Username"));
+                                    edit.putString("Password",document.getString("Password"));
+                                    edit.putString("Contact",document.getString("Contact"));
+                                    edit.putString("Senior First Name",document.getString("Senior First Name"));
+                                    edit.putString("Senior Last Name",document.getString("Senior Last Name"));
+                                    edit.commit();
+                                    //String a =userdata.getString("Username",null);
+                                    //Toast.makeText(getApplicationContext(),a,Toast.LENGTH_LONG).show();
+                                    startActivity(new Intent(junior_second_page_login.this, junior_second_page_after_login_signup.class));
                                 }else
                                     Toast.makeText(getApplicationContext(),"Incorrect Password",Toast.LENGTH_LONG).show();
                             } else {

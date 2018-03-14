@@ -1,7 +1,9 @@
 package com.sfit.sahara.mysahara;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.Editable;
@@ -72,6 +74,16 @@ public class junior_second_page_signup extends Activity {
                                     Toast success = Toast.makeText(getApplicationContext(),"Account Created, Login now",Toast.LENGTH_LONG);
                                     success.setGravity(Gravity.BOTTOM|Gravity.CENTER,0,0);
                                     success.show();
+                                    SharedPreferences userdata = getSharedPreferences("UserData", Context.MODE_PRIVATE);
+                                    SharedPreferences.Editor edit = userdata.edit();
+                                    edit.putString("Username",user);
+                                    edit.putString("Password",pass);
+                                    edit.putString("Contact",contact_num);
+                                    edit.putString("First Name",f_name);
+                                    edit.putString("Last Name",l_name);
+                                    edit.putString("Senior First Name","xabsttc");
+                                    edit.putString("Senior Last Name","");
+                                    edit.commit();
                                     startActivity(new Intent(junior_second_page_signup.this,junior_second_page_login.class));
                                 }
                             }).addOnFailureListener(new OnFailureListener() {

@@ -59,7 +59,7 @@
             android:label="@string/title_activity_junior_add_location" />
         <activity android:name=".junior_second_page_home" />
         <activity android:name=".senior_second_page" />
-        <activity android:name=".junior_second_page_addmember"></activity>
+        <activity android:name=".junior_second_page_after_login_signup"></activity>
     </application>
 
 </manifest>

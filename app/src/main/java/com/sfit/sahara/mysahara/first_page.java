@@ -55,6 +55,7 @@ public class first_page extends AppCompatActivity {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Toast.makeText(first_page.this, "This might take a while", Toast.LENGTH_LONG).show();
                 final String code = etAddCode.getText().toString();
                 //final int flag;
                 CollectionReference usersRef = db.collection("users");
@@ -76,7 +77,8 @@ public class first_page extends AppCompatActivity {
                                 break;
                             }
                         } else {
-                                    Log.d(TAG, "Error getting documents: ", task.getException());
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                            Toast.makeText(first_page.this, "Please enter the correct code", Toast.LENGTH_LONG).show();
                         }
                     }
                 });
