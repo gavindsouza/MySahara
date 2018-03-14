@@ -23,7 +23,6 @@ import static android.content.ContentValues.TAG;
 
 public class first_page extends AppCompatActivity {
 
-    Button btnAdd;
     EditText etAddCode;
     Button btnSubmit;
     FirebaseFirestore db=FirebaseFirestore.getInstance();
