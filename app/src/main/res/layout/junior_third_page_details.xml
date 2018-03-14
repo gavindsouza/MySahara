@@ -6,32 +6,14 @@
     android:layout_height="match_parent"
     tools:context="com.sfit.sahara.mysahara.junior_third_page_details">
 
-    <TimePicker
-        android:id="@+id/timePicker2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:headerBackground="@color/common_google_signin_btn_text_dark_focused" />
-
-    <EditText
-        android:id="@+id/outdoor_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/gen_code"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="18dp"
-        android:ems="10"
-        android:inputType="time"
-        android:text="Outdoor time" />
-
     <Button
         android:id="@+id/gen_code"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="27dp"
-        android:layout_toStartOf="@+id/add_loc"
+        android:layout_alignStart="@+id/textView"
+        android:layout_marginBottom="122dp"
+        android:layout_marginStart="21dp"
         android:text="Generate code" />
 
     <Button
@@ -43,5 +25,47 @@
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="58dp"
         android:text="Add Location" />
+
+    <EditText
+        android:id="@+id/fname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView"
+        android:layout_marginTop="52dp"
+        android:ems="10"
+        android:hint="First Name"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/lname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/fname"
+        android:layout_marginTop="32dp"
+        android:ems="10"
+        android:hint="Last Name"
+        android:inputType="textPersonName" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="18dp"
+        android:text="Senior Details"
+        android:visibility="visible" />
+
+    <Button
+        android:id="@+id/confirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="19dp"
+        android:text="confirm" />
 
 </RelativeLayout>
