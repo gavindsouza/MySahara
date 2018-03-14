@@ -62,7 +62,7 @@ public class junior_second_page_login extends Activity {
                             if (document != null && document.exists()) {
                                 Log.d(TAG, "DocumentSnapshot data: " + document.getData());
                                 if(document.get("Password").equals(pass)) {
-                                    startActivity(new Intent(junior_second_page_login.this, junior_second_page_home.class));
+                                    startActivity(new Intent(junior_second_page_login.this, junior_second_page_addmember.class));
                                 }else
                                     Toast.makeText(getApplicationContext(),"Incorrect Password",Toast.LENGTH_LONG).show();
                             } else {

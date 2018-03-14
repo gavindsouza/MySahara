@@ -8,7 +8,8 @@
          location permissions for the 'MyLocation' functionality. 
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -36,7 +37,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".senior_first_page"></activity>
+        <activity android:name=".senior_first_page" />
         <activity android:name=".junior_third_page_details" />
         <activity android:name=".junior_second_page_login" />
         <activity android:name=".junior_second_page_signup" />
@@ -57,7 +58,8 @@
             android:name=".junior_add_location"
             android:label="@string/title_activity_junior_add_location" />
         <activity android:name=".junior_second_page_home" />
-        <activity android:name=".senior_second_page"></activity>
+        <activity android:name=".senior_second_page" />
+        <activity android:name=".junior_second_page_addmember"></activity>
     </application>
 
 </manifest>
