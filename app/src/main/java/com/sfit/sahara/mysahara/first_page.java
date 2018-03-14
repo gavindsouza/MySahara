@@ -67,10 +67,12 @@ public class first_page extends AppCompatActivity {
                             for (DocumentSnapshot document : task.getResult()) {
                                 String sfname = document.getString("Senior First Name");
                                 String slname = document.getString("Senior Last Name");
+                                String contact = document.getString("Contact");
                                 //Log.d(TAG, document.getId() + " => " + document.getData());
                                 Intent i = new Intent(first_page.this,senior_first_page.class);
                                 i.putExtra("sfname",sfname);
                                 i.putExtra("slname",slname);
+                                i.putExtra("contact",contact);
                                 startActivity(i);
                                 break;
                             }

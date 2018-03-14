@@ -17,9 +17,24 @@ public class senior_first_page extends AppCompatActivity {
         Intent i = getIntent();
         String sfname = i.getStringExtra("sfname");
         String slname = i.getStringExtra("slname");
-
+        final String contact = i.getStringExtra("contact");
 
         tvHiOldie.setText("HI\n" + sfname + "\n"+ slname);
-        //make button for call and sos
+        new  Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(2500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                Intent intent = new Intent(senior_first_page.this, senior_second_page.class);
+                intent.putExtra("contact",contact);
+                startActivity(intent);
+                finish();
+            }
+        }).start();
+
+
     }
 }
