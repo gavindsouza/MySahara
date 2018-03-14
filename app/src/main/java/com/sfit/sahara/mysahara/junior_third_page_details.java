@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -17,9 +18,13 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
+
 
 
 public class junior_third_page_details extends AppCompatActivity {
+    private final int REQUEST_CODE_PLACEPICKER = 1;
     FirebaseFirestore db=FirebaseFirestore.getInstance();
     String code,locate;
 
@@ -28,17 +33,19 @@ public class junior_third_page_details extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.junior_third_page_details);
         final Button generate=findViewById(R.id.gen_code);
-        final Button location=findViewById(R.id.add_loc);
         Button confirm=findViewById(R.id.confirm);
         final EditText fname=findViewById(R.id.fname);
         final EditText lname=findViewById(R.id.lname);
+        Button go = findViewById(R.id.show_loc);
 
-        location.setOnClickListener(new View.OnClickListener() {
+        go.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-
+            public void onClick(View v) {
+                startPlacePickerActivity();
             }
         });
+
+
         generate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -68,7 +75,35 @@ public class junior_third_page_details extends AppCompatActivity {
                 startActivity(new Intent(junior_third_page_details.this,junior_fifth_page_home.class));
             }
         });
+    }////
+
+    private void startPlacePickerActivity() {
+        PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+
+        try {
+            Intent intent = builder.build(this);
+            startActivityForResult(intent, REQUEST_CODE_PLACEPICKER);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+    @Override
+    protected  void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_CODE_PLACEPICKER && resultCode == RESULT_OK) {
+            displaySelectedPlaceFromPlacePicker(data);
+        }
+    }
+
+    private void displaySelectedPlaceFromPlacePicker(Intent data) {
+        Place placeSelected = PlacePicker.getPlace(this,data);
+
+        String name = placeSelected.getName().toString();
+        String address = placeSelected.getAddress().toString();
+
+        TextView enterCurrentLocation =  findViewById(R.id.txt);
+        enterCurrentLocation.setText(name + ", " + address);
+    }
+
     public int code_gen(){
         final int random = new Random().nextInt(9999) + 20;
         db.collection("users").whereEqualTo("Code", random).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
