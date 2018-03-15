@@ -36,10 +36,6 @@ public class senior_second_page extends AppCompatActivity {
             public void onClick(View view) {
                 Intent i = new Intent(Intent.ACTION_CALL);
                 i.setData(Uri.parse("tel:" + contact));
-                if (ActivityCompat.checkSelfPermission(senior_second_page.this, android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(senior_second_page.this,new String[]{Manifest.permission.CALL_PHONE},1);
-                    return;
-                }
                 startActivity(i);
             }
         });
