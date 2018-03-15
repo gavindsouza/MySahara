@@ -1,6 +1,7 @@
 package com.sfit.sahara.mysahara;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,70 +21,88 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import static android.content.ContentValues.TAG;
+import static android.content.SharedPreferences.*;
 
 public class first_page extends AppCompatActivity {
 
     EditText etAddCode;
     Button btnSubmit;
     FirebaseFirestore db=FirebaseFirestore.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.first_page);
+
+        final SharedPreferences data = getSharedPreferences("UserData", MODE_PRIVATE);
 
         Button btnlogin = findViewById(R.id.btnlogin);
         Button btnsignup = findViewById(R.id.btnsignup);
         etAddCode = findViewById(R.id.etAddCode);
         btnSubmit = findViewById(R.id.btnSubmit);
 
-        btnsignup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(first_page.this,junior_second_page_signup.class);
-                startActivity(i);
-            }
-        });
+        try {
+            Toast.makeText(getApplicationContext(), data.getString("Code", null), Toast.LENGTH_LONG).show();
+            if (!data.getString("Code", null).isEmpty()||data.getString("Code", null)=="")
+                startActivity(new Intent(first_page.this, senior_second_page.class));
+        } catch (Exception e) {
 
-        btnlogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(first_page.this,junior_second_page_login.class);
-                startActivity(i);
-            }
-        });
+            btnsignup.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(first_page.this, junior_second_page_signup.class));
+                }
+            });
 
-        btnSubmit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(first_page.this, "This might take a while", Toast.LENGTH_LONG).show();
-                final String code = etAddCode.getText().toString();
-                //final int flag;
-                CollectionReference usersRef = db.collection("users");
-                //check if code is matching with code in database)
-                usersRef.whereEqualTo("Code", code).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (DocumentSnapshot document : task.getResult()) {
-                                String sfname = document.getString("Senior First Name");
-                                String slname = document.getString("Senior Last Name");
-                                String contact = document.getString("Contact");
-                                //Log.d(TAG, document.getId() + " => " + document.getData());
-                                Intent i = new Intent(first_page.this,senior_first_page.class);
-                                i.putExtra("sfname",sfname);
-                                i.putExtra("slname",slname);
-                                i.putExtra("contact",contact);
-                                startActivity(i);
-                                break;
+            btnlogin.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(first_page.this, junior_second_page_login.class));
+                }
+            });
+
+            btnSubmit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(first_page.this, "This might take a while", Toast.LENGTH_SHORT).show();
+                    final String code = etAddCode.getText().toString();
+                    final Editor edit = data.edit();
+                    //final int flag;
+                    CollectionReference usersRef = db.collection("users");
+                    //check if code is matching with code in database)
+                    usersRef.whereEqualTo("Code", code).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (DocumentSnapshot document : task.getResult()) {
+                                    String sfname = document.getString("Senior First Name");
+                                    String slname = document.getString("Senior Last Name");
+                                    String contact = document.getString("Contact");
+                                    edit.putString("Username", document.getString("Username"));
+                                    edit.putString("Password", document.getString("Password"));
+                                    edit.putString("Code",document.getString("Code"));
+                                    edit.putString("Contact", contact);
+                                    edit.putString("Senior First Name", sfname);
+                                    edit.putString("Senior Last Name", slname);
+                                    edit.commit();
+                                    //Log.d(TAG, document.getId() + " => " + document.getData());
+                                    Intent i = new Intent(first_page.this, senior_first_page.class);
+                                    //i.putExtra("sfname",sfname);
+                                    //i.putExtra("slname",slname);
+                                    //i.putExtra("contact",contact);
+                                    startActivity(i);
+                                    break;
+                                }
+                            } else {
+                                Log.d(TAG, "Error getting documents: ", task.getException());
+                                Toast.makeText(first_page.this, "Please enter the correct code", Toast.LENGTH_LONG).show();
                             }
-                        } else {
-                            Log.d(TAG, "Error getting documents: ", task.getException());
-                            Toast.makeText(first_page.this, "Please enter the correct code", Toast.LENGTH_LONG).show();
                         }
-                    }
-                });
-            }
-        });
+                    });
+                }
+            });
+        }
 
     }
 }
+
