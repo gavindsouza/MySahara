@@ -8,6 +8,7 @@ import android.widget.Button;
 
 public class junior_second_page_home extends AppCompatActivity {
 
+    //THIS PAGE IS REDUNDANT
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -85,6 +85,7 @@ public class junior_second_page_signup extends Activity {
                                     edit.putString("Senior Last Name","");
                                     edit.commit();
                                     startActivity(new Intent(junior_second_page_signup.this,junior_second_page_login.class));
+                                    finish();
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override

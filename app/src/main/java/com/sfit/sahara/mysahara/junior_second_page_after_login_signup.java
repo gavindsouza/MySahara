@@ -22,8 +22,10 @@ public class junior_second_page_after_login_signup extends AppCompatActivity {
             Toast.makeText(getApplicationContext(),temp,Toast.LENGTH_LONG);
             if (temp.equals("xabsttc"))
                 startActivity(new Intent(junior_second_page_after_login_signup.this, junior_third_page_details.class));
-            else
+            else {
                 startActivity(new Intent(junior_second_page_after_login_signup.this, junior_fifth_page_home.class));
+                finish();
+            }
         }catch (Exception e){
             Toast.makeText(getApplicationContext(),"What just happened? Whatever happened at 'junior_second_page_after_login_signup.java' line 21",Toast.LENGTH_LONG);
         }

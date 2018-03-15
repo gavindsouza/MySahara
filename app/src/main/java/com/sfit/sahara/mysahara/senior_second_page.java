@@ -2,11 +2,13 @@ package com.sfit.sahara.mysahara;
 
 import android.*;
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -53,16 +55,43 @@ public class senior_second_page extends AppCompatActivity {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+    }
+    public void onBackPressed() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Do you want to close this application?");
+        builder.setCancelable(false);
+
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
                 try {
                     SharedPreferences data = getSharedPreferences("UserData", MODE_PRIVATE);
                     SharedPreferences.Editor edit = data.edit();
                     edit.clear();
                     edit.commit();
-                    startActivity(new Intent(senior_second_page.this, first_page.class));
+                    //startActivity(new Intent(senior_second_page.this, first_page.class));
                 }catch (Exception e){
                     Toast.makeText(getApplicationContext(),"Something Happened",Toast.LENGTH_SHORT).show();
                 }
+                finish();
+                System.exit(0);
             }
         });
+
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.cancel();
+            }
+        });
+
+        AlertDialog alert = builder.create();
+        alert.setTitle("Exit");
+        alert.show();
     }
+
+
 }
