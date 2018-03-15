@@ -5,6 +5,7 @@
     android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:noHistory="true"
     tools:context="com.sfit.sahara.mysahara.junior_second_page_login">
 
     <ImageButton

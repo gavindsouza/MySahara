@@ -14,4 +14,12 @@
 
     <string name="gotologin">Login</string>
     <string name="gotosignup">Signup</string>
+    <string name="first_name">First name</string>
+    <string name="last_name">Last name</string>
+    <string name="contact_no">Contact No.</string>
+    <string name="enter_username">Enter username</string>
+    <string name="enter_password">Enter password</string>
+    <string name="re_enter_password">Re-Enter password</string>
+    <string name="signup">Signup</string>
+    <string name="welcome_to_sahara">WELCOME TO SAHARA!</string>
 </resources>

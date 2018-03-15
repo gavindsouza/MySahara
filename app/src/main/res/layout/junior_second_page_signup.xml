@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:maxWidth="200dp"
     android:minWidth="200dp"
+    android:noHistory="true"
     tools:context="com.sfit.sahara.mysahara.junior_second_page_signup">
 
 
@@ -18,7 +19,7 @@
         android:layout_marginTop="29dp"
         android:ems="10"
         android:background="@drawable/border"
-        android:hint="First name"
+        android:hint="@string/first_name"
         android:inputType="textPersonName" />
 
     <EditText
@@ -29,7 +30,7 @@
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="7dp"
         android:ems="10"
-        android:hint="Last name"
+        android:hint="@string/last_name"
         android:background="@drawable/border"
         android:inputType="textPersonName" />
 
@@ -42,7 +43,7 @@
         android:layout_below="@+id/etFname"
         android:layout_marginTop="37dp"
         android:ems="10"
-        android:hint="Contact No."
+        android:hint="@string/contact_no"
         android:inputType="phone" />
 
     <EditText
@@ -53,7 +54,7 @@
         android:layout_centerVertical="true"
         android:background="@drawable/border"
         android:ems="10"
-        android:hint="Enter username"
+        android:hint="@string/enter_username"
         android:inputType="textPersonName" />
 
     <EditText
@@ -65,7 +66,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="20dp"
         android:ems="10"
-        android:hint="Enter password"
+        android:hint="@string/enter_password"
         android:background="@drawable/border"
         android:inputType="textPassword" />
 
@@ -79,7 +80,7 @@
         android:ems="10"
         android:background="@drawable/border"
         android:inputType="textPassword"
-        android:hint="Re-Enter password"/>
+        android:hint="@string/re_enter_password"/>
 
     <Button
         android:id="@+id/btnSignup"
@@ -88,7 +89,7 @@
         android:layout_alignEnd="@+id/etConfirmPass"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="28dp"
-        android:text="Signup" />
+        android:text="@string/signup" />
 
     <TextView
         android:id="@+id/tvWelcome"
@@ -98,7 +99,7 @@
         android:layout_alignStart="@+id/etFname"
         android:layout_marginStart="49dp"
         android:layout_marginTop="22dp"
-        android:text="WELCOME TO SAHARA!"
+        android:text="@string/welcome_to_sahara"
         android:textAlignment="center"
         android:textSize="20sp"
         android:textStyle="bold" />
