@@ -22,8 +22,40 @@ public class junior_fifth_page_home extends AppCompatActivity {
         Integer online = 1;
         exit.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                onBackPressed();
+                //onBackPressed();
+                AlertDialog.Builder builder = new AlertDialog.Builder(junior_fifth_page_home.this);
+                builder.setMessage("Do you want to exit this application?");
+                builder.setCancelable(false);
+
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        try {
+                            SharedPreferences data = getSharedPreferences("UserData", MODE_PRIVATE);
+                            SharedPreferences.Editor edit = data.edit();
+                            edit.clear();
+                            edit.commit();
+                            //startActivity(new Intent(senior_second_page.this, first_page.class));
+                        }catch (Exception e){
+                            Toast.makeText(getApplicationContext(),"Something Happened",Toast.LENGTH_SHORT).show();
+                        }
+                        finish();
+                        System.exit(0);
+                    }
+                });
+
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                    }
+                });
+
+                AlertDialog alert = builder.create();
+                alert.setTitle("Exit");
+                alert.show();
             }
+
         });
         if (online==1)
             text.setText("Current Status: online");
@@ -40,16 +72,16 @@ public class junior_fifth_page_home extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 try {
-                    SharedPreferences data = getSharedPreferences("UserData", MODE_PRIVATE);
-                    SharedPreferences.Editor edit = data.edit();
-                    edit.clear();
-                    edit.commit();
-                    //startActivity(new Intent(senior_second_page.this, first_page.class));
+                    //SharedPreferences data = getSharedPreferences("UserData", MODE_PRIVATE);
+                    //SharedPreferences.Editor edit = data.edit();
+                    //edit.clear();
+                    //edit.commit();
+                    startActivity(new Intent(junior_fifth_page_home.this, first_page.class));
                 }catch (Exception e){
                     Toast.makeText(getApplicationContext(),"Something Happened",Toast.LENGTH_SHORT).show();
                 }
                 finish();
-                System.exit(0);
+                //System.exit(0);
             }
         });
 

@@ -57,11 +57,12 @@ public class senior_second_page extends AppCompatActivity {
             public void onClick(View view) {
                 onBackPressed();
             }
+
         });
     }
     public void onBackPressed() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Do you want to close this application?");
+        AlertDialog.Builder builder = new AlertDialog.Builder(senior_second_page.this);
+        builder.setMessage("Do you really want to exit this application?");
         builder.setCancelable(false);
 
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -72,7 +73,8 @@ public class senior_second_page extends AppCompatActivity {
                     SharedPreferences.Editor edit = data.edit();
                     edit.clear();
                     edit.commit();
-                    //startActivity(new Intent(senior_second_page.this, first_page.class));
+                    // startActivity(new Intent(senior_second_page.this, first_page.class));
+
                 }catch (Exception e){
                     Toast.makeText(getApplicationContext(),"Something Happened",Toast.LENGTH_SHORT).show();
                 }
@@ -91,7 +93,7 @@ public class senior_second_page extends AppCompatActivity {
         AlertDialog alert = builder.create();
         alert.setTitle("Exit");
         alert.show();
-    }
 
+    }
 
 }
