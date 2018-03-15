@@ -24,42 +24,47 @@ public class senior_second_page extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_senior_second_page);
-
-
         ImageButton imgbtnCall = findViewById(R.id.imgbtnCall);
         ImageButton imgbtnMess = findViewById(R.id.imgbtnMess);
-        Button logout=findViewById(R.id.senior_log_out);
+        Button logout = findViewById(R.id.senior_log_out);
 
-        Intent intent = getIntent();
-        final String contact = intent.getStringExtra("contact");
+        try {
+            final SharedPreferences data = getSharedPreferences("UserData", MODE_PRIVATE);
+            final String contact =data.getString("Contact",null);
 
-        imgbtnCall.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(Intent.ACTION_CALL);
-                i.setData(Uri.parse("tel:" + contact));
-                startActivity(i);
-            }
-        });
+            imgbtnCall.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent i = new Intent(Intent.ACTION_CALL);
+                    startActivity(i.setData(Uri.parse("tel:" + contact)));
+                }
+            });
 
-        imgbtnMess.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse("sms:" + contact));
-                i.putExtra("sms_body","please help me");
-                startActivity(i);
-            }
-        });
+            imgbtnMess.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse("sms:" + contact));
+                    i.putExtra("sms_body", "please help me | sent from MySahara");
+                    startActivity(i);
+                }
+            });
 
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-
-        });
+            logout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    SharedPreferences.Editor edit = data.edit();
+                    edit.clear();
+                    edit.commit();
+                    startActivity(new Intent(senior_second_page.this,first_page.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK));
+                    finish();
+                }
+            });
+        }catch(Exception e){
+            Toast.makeText(getApplicationContext(),"Something Happened",Toast.LENGTH_SHORT).show();
+        }
     }
+
     public void onBackPressed() {
         AlertDialog.Builder builder = new AlertDialog.Builder(senior_second_page.this);
         builder.setMessage("Do you really want to exit this application?");
@@ -68,18 +73,8 @@ public class senior_second_page extends AppCompatActivity {
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                try {
-                    SharedPreferences data = getSharedPreferences("UserData", MODE_PRIVATE);
-                    SharedPreferences.Editor edit = data.edit();
-                    edit.clear();
-                    edit.commit();
-                    // startActivity(new Intent(senior_second_page.this, first_page.class));
-
-                }catch (Exception e){
-                    Toast.makeText(getApplicationContext(),"Something Happened",Toast.LENGTH_SHORT).show();
-                }
                 finish();
-                System.exit(0);
+                //System.exit(0);
             }
         });
 
@@ -89,11 +84,8 @@ public class senior_second_page extends AppCompatActivity {
                 dialogInterface.cancel();
             }
         });
-
         AlertDialog alert = builder.create();
         alert.setTitle("Exit");
         alert.show();
-
     }
-
 }

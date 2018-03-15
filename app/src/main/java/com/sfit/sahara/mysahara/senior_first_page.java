@@ -14,11 +14,6 @@ public class senior_first_page extends AppCompatActivity {
         setContentView(R.layout.senior_first_page);
         tvHiOldie = findViewById(R.id.tvHiOldie);
         SharedPreferences data=getSharedPreferences("UserData",MODE_PRIVATE);
-        //fetch name of old man from database and display it
-        //Intent i = getIntent();
-        //String sfname = i.getStringExtra("sfname");
-        //String slname = i.getStringExtra("slname");
-        //final String contact = i.getStringExtra("contact");
 
         final String sfname = data.getString("Senior First Name",null);
         final String slname = data.getString("Senior Last Name",null);
@@ -33,13 +28,12 @@ public class senior_first_page extends AppCompatActivity {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                Intent intent = new Intent(senior_first_page.this, senior_second_page.class);
+                Intent intent = new Intent(senior_first_page.this, senior_second_page.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 intent.putExtra("contact",contact);
                 startActivity(intent);
                 finish();
             }
         }).start();
-
-
+        finish();
     }
 }

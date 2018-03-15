@@ -46,23 +46,24 @@ public class first_page extends AppCompatActivity {
         etAddCode = findViewById(R.id.etAddCode);
         btnSubmit = findViewById(R.id.btnSubmit);
 
-        try {
-            Toast.makeText(getApplicationContext(), data.getString("Code", null), Toast.LENGTH_LONG).show();
-            if (!data.getString("Code", null).isEmpty()||data.getString("Code", null)=="")
-                startActivity(new Intent(first_page.this, senior_second_page.class));
-        } catch (Exception e) {
+        //try {
+            //Toast.makeText(getApplicationContext(), data.getString("Code", null), Toast.LENGTH_LONG).show();
+            //if (!data.getString("Code", null).isEmpty()||data.getString("Code", null)=="")
+                //startActivity(new Intent(first_page.this, senior_second_page.class));
+        //} catch (Exception e) {
 
             btnsignup.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    startActivity(new Intent(first_page.this, junior_second_page_signup.class));
+                    startActivity(new Intent(first_page.this, junior_second_page_signup.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP));
                 }
             });
 
             btnlogin.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    startActivity(new Intent(first_page.this, junior_second_page_login.class));
+                    startActivity(new Intent(first_page.this, junior_second_page_login.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK));
+                    finish();
                 }
             });
 
@@ -91,12 +92,7 @@ public class first_page extends AppCompatActivity {
                                     edit.putString("Senior Last Name", slname);
                                     edit.commit();
                                     //Log.d(TAG, document.getId() + " => " + document.getData());
-                                    Intent i = new Intent(first_page.this, senior_first_page.class);
-                                    //i.putExtra("sfname",sfname);
-                                    //i.putExtra("slname",slname);
-                                    //i.putExtra("contact",contact);
-                                    startActivity(i);
-                                    //finish();
+                                    startActivity(new Intent(first_page.this, senior_first_page.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP));
                                     break;
                                 }
                             } else {
@@ -107,13 +103,13 @@ public class first_page extends AppCompatActivity {
                     });
                 }
             });
-        }
+        //}
         if ((ActivityCompat.checkSelfPermission(first_page.this, android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED)||(ActivityCompat.checkSelfPermission(first_page.this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)||(ActivityCompat.checkSelfPermission(first_page.this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)) {
             ActivityCompat.requestPermissions(first_page.this,new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.CALL_PHONE, android.Manifest.permission.ACCESS_COARSE_LOCATION},1);
             return;
         }
     }
-
+/*
     public void onBackPressed() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Do you want to close this application?");
@@ -147,6 +143,6 @@ public class first_page extends AppCompatActivity {
         alert.setTitle("Exit");
         alert.show();
     }
-
+*/
 }
 

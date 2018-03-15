@@ -84,7 +84,7 @@ public class junior_second_page_signup extends Activity {
                                     edit.putString("Senior First Name","xabsttc");
                                     edit.putString("Senior Last Name","");
                                     edit.commit();
-                                    startActivity(new Intent(junior_second_page_signup.this,junior_second_page_login.class));
+                                    startActivity(new Intent(junior_second_page_signup.this,junior_second_page_login.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK));
                                     finish();
                                 }
                             }).addOnFailureListener(new OnFailureListener() {

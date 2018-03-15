@@ -38,8 +38,10 @@ public class junior_second_page_login extends Activity {
             SharedPreferences user = getSharedPreferences("UserData", MODE_PRIVATE);
             String um = user.getString("Username", null);
             String pass = user.getString("Password", null);
-            if (!um.isEmpty())
+            if (!um.isEmpty()) {
                 startActivity(new Intent(junior_second_page_login.this, junior_second_page_after_login_signup.class));
+                finish();
+            }
                 Toast.makeText(getApplicationContext(), um + pass, Toast.LENGTH_LONG).show();
         }catch (Exception e){}
 
@@ -84,7 +86,7 @@ public class junior_second_page_login extends Activity {
                                     edit.commit();
                                     //String a =userdata.getString("Username",null);
                                     //Toast.makeText(getApplicationContext(),a,Toast.LENGTH_LONG).show();
-                                    startActivity(new Intent(junior_second_page_login.this, junior_second_page_after_login_signup.class));
+                                    startActivity(new Intent(junior_second_page_login.this, junior_second_page_after_login_signup.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK));
                                     finish();
                                 }else
                                     Toast.makeText(getApplicationContext(),"Incorrect Password",Toast.LENGTH_LONG).show();
