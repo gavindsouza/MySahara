@@ -114,7 +114,7 @@ public class first_page extends AppCompatActivity {
         }
     }
 
-    /*public void onBackPressed() {
+    public void onBackPressed() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Do you want to close this application?");
         builder.setCancelable(false);
@@ -147,6 +147,6 @@ public class first_page extends AppCompatActivity {
         alert.setTitle("Exit");
         alert.show();
     }
-*/
+
 }
 
