@@ -40,7 +40,7 @@ public class junior_second_page_login extends Activity {
             String pass = user.getString("Password", null);
             if (!um.isEmpty())
                 startActivity(new Intent(junior_second_page_login.this, junior_second_page_after_login_signup.class));
-            Toast.makeText(getApplicationContext(), um + pass, Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), um + pass, Toast.LENGTH_LONG).show();
         }catch (Exception e){}
 
         password.addTextChangedListener(new TextWatcher() {
@@ -85,6 +85,7 @@ public class junior_second_page_login extends Activity {
                                     //String a =userdata.getString("Username",null);
                                     //Toast.makeText(getApplicationContext(),a,Toast.LENGTH_LONG).show();
                                     startActivity(new Intent(junior_second_page_login.this, junior_second_page_after_login_signup.class));
+                                    finish();
                                 }else
                                     Toast.makeText(getApplicationContext(),"Incorrect Password",Toast.LENGTH_LONG).show();
                             } else {
