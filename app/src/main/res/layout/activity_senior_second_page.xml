@@ -8,19 +8,30 @@
 
     <ImageButton
         android:id="@+id/imgbtnMess"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="150dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="78dp"
+        android:layout_alignStart="@+id/imgbtnCall"
+        android:layout_below="@+id/imgbtnCall"
+        android:layout_marginTop="54dp"
         app:srcCompat="@drawable/mess" />
 
     <ImageButton
         android:id="@+id/imgbtnCall"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="180dp"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="40dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="47dp"
         app:srcCompat="@drawable/call" />
+
+    <Button
+        android:id="@+id/senior_log_out"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="12dp"
+        android:layout_marginEnd="28dp"
+        android:text="Button" />
 
 </RelativeLayout>
