@@ -73,6 +73,7 @@ public class junior_third_page_details extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(junior_third_page_details.this,junior_fifth_page_home.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK));
+                finish();
             }
         });
     }////
