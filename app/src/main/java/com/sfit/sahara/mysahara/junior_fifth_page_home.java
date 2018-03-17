@@ -39,7 +39,7 @@ public class junior_fifth_page_home extends AppCompatActivity {
             }
         });
 
-        if (online == 1)
+        if (online ==1)
             text.setText("Current Status: online");
         else
             text.setText("Current Status: offline");
