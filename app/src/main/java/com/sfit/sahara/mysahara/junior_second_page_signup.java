@@ -74,8 +74,8 @@ public class junior_second_page_signup extends Activity {
             lname.setError("Please enter valid last name");
             valid=false;
         }
-        if (contact_num.isEmpty()){
-            contact.setError("Please enter a contact number");
+        if (contact_num.isEmpty() || contact_num.length()!=10){
+            contact.setError("Please enter a valid mobile number");
             valid=false;
         }
         if (user.isEmpty()){
