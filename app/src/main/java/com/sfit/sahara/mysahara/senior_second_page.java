@@ -31,6 +31,9 @@ public class senior_second_page extends AppCompatActivity {
         try {
             final SharedPreferences data = getSharedPreferences("UserData", MODE_PRIVATE);
             final String contact =data.getString("Contact",null);
+            final String sfname = data.getString("Senior First Name",null);
+            final String slname = data.getString("Senior Last Name",null);
+            Toast.makeText(getApplicationContext(),"Hi "+sfname+" "+slname,Toast.LENGTH_LONG);
 
             imgbtnCall.setOnClickListener(new View.OnClickListener() {
                 @Override
