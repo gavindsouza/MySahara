@@ -48,7 +48,7 @@ public class junior_second_page_signup extends Activity {
             @Override
             public void afterTextChanged(Editable editable) {
                 final String pass = password.getText().toString();
-                String confirm_pass = confirm.getText().toString();
+                final String confirm_pass = confirm.getText().toString();
                 final String f_name = fname.getText().toString();
                 final String l_name = lname.getText().toString();
                 final String contact_num = contact.getText().toString();
@@ -98,6 +98,8 @@ public class junior_second_page_signup extends Activity {
                         }
                     });
                 }
+                else
+                    Toast.makeText(junior_second_page_signup.this, "Please enter same password in both the fields", Toast.LENGTH_SHORT).show();
             }
         });
     }
