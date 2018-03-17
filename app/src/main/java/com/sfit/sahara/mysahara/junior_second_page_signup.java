@@ -23,22 +23,119 @@ import java.util.Map;
 
 public class junior_second_page_signup extends Activity {
     FirebaseFirestore db;
-
+    private EditText fname, lname, contact, username, password, confirm;
+    Button signup;
+    private String f_name, l_name, contact_num, user, pass, confirm_pass;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.junior_second_page_signup);
 
-        db=FirebaseFirestore.getInstance();
+        db = FirebaseFirestore.getInstance();
 
-        final EditText fname = (EditText) findViewById(R.id.etFname);
-        final EditText lname = (EditText) findViewById(R.id.etLname);
-        final EditText contact = (EditText) findViewById(R.id.etContact);
-        final EditText username = (EditText) findViewById(R.id.etUsername);
-        final EditText password = (EditText) findViewById(R.id.etPass);
-        final EditText confirm = (EditText) findViewById(R.id.etConfirmPass);
-        final Button signup =(Button) findViewById(R.id.btnSignup);
+        fname = (EditText) findViewById(R.id.etFname);
+        lname = (EditText) findViewById(R.id.etLname);
+        contact = (EditText) findViewById(R.id.etContact);
+        username = (EditText) findViewById(R.id.etUsername);
+        password = (EditText) findViewById(R.id.etPass);
+        confirm = (EditText) findViewById(R.id.etConfirmPass);
+        signup = (Button) findViewById(R.id.btnSignup);
 
-        signup.setEnabled(false);
+        signup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                register();
+            }
+        });
+    }
+    public void register(){
+        initialize();
+        if (!validate()){
+            Toast.makeText(this, "Signup has failed", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            onSignupSuccess();
+        }
+    }
+    public void initialize(){
+        f_name = fname.getText().toString().trim();
+        l_name = lname.getText().toString().trim();
+        contact_num = contact.getText().toString().trim();
+        user = username.getText().toString().trim();
+        pass = password.getText().toString().trim();
+        confirm_pass = confirm.getText().toString().trim();
+    }
+    public boolean validate(){
+        boolean valid = true;
+        if (f_name.isEmpty()){
+            fname.setError("Please enter valid first name");
+            valid=false;
+        }
+        if (l_name.isEmpty()){
+            lname.setError("Please enter valid last name");
+            valid=false;
+        }
+        if (contact_num.isEmpty()){
+            contact.setError("Please enter a contact number");
+            valid=false;
+        }
+        if (user.isEmpty()){
+            username.setError("Please enter a username");
+            valid=false;
+        }
+        if (pass.isEmpty()){
+            password.setError("Please enter a password");
+            valid=false;
+        }
+        if (confirm_pass.isEmpty()){
+            confirm.setError("Please enter a password");
+            valid=false;
+        }
+        if (!(pass.equals(confirm_pass))){
+            confirm.setError("please enter the same passwords at both places");
+            valid=false;
+        }
+
+        return valid;
+    }
+    public void onSignupSuccess(){
+        Map<String, Object> m = new HashMap<>();
+        m.put("First Name", f_name);
+        m.put("Last Name", l_name);
+        m.put("Contact", contact_num);
+        m.put("Username", user);
+        m.put("Password", pass);
+        m.put("Senior First Name","" );
+        m.put("Senior Last Name","" );
+        m.put("Code", "");
+        db.collection("users").document(user).set(m).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Toast success = Toast.makeText(getApplicationContext(),"Account Created, Login now",Toast.LENGTH_LONG);
+                success.setGravity(Gravity.BOTTOM|Gravity.CENTER,0,0);
+                success.show();
+                SharedPreferences userdata = getSharedPreferences("UserData", Context.MODE_PRIVATE);
+                SharedPreferences.Editor edit = userdata.edit();
+                edit.putString("Username",user);
+                edit.putString("Password",pass);
+                edit.putString("Contact",contact_num);
+                edit.putString("First Name",f_name);
+                edit.putString("Last Name",l_name);
+                edit.putString("Senior First Name","xabsttc");
+                edit.putString("Senior Last Name","");
+                edit.commit();
+                startActivity(new Intent(junior_second_page_signup.this,junior_second_page_login.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK));
+                finish();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast failure = Toast.makeText(getApplicationContext(),"Something went Wrong",Toast.LENGTH_SHORT);
+                failure.setGravity(Gravity.BOTTOM|Gravity.CENTER,0,0);
+                failure.show();
+            }
+        });
+    }
+        /*signup.setEnabled(false);
 
         confirm.addTextChangedListener(new TextWatcher() {
             @Override
@@ -47,14 +144,14 @@ public class junior_second_page_signup extends Activity {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
             @Override
             public void afterTextChanged(Editable editable) {
-                final String pass = password.getText().toString();
-                final String confirm_pass = confirm.getText().toString();
-                final String f_name = fname.getText().toString();
-                final String l_name = lname.getText().toString();
-                final String contact_num = contact.getText().toString();
-                final String user = username.getText().toString();
-
-                if (confirm_pass.equals(pass)) { /*&&(!f_name.isEmpty())&&(!contact_num.isEmpty())&&(!user.isEmpty())&&(!pass.isEmpty())&&(!confirm_pass.isEmpty())*/
+                String pass = password.getText().toString();
+                String confirm_pass = confirm.getText().toString();
+                String f_name = fname.getText().toString();
+                String l_name = lname.getText().toString();
+                String contact_num = contact.getText().toString();
+                String user = username.getText().toString();
+*/
+              /*  if (confirm_pass.equals(pass)) {
                     signup.setEnabled(true);
                     signup.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -102,5 +199,6 @@ public class junior_second_page_signup extends Activity {
                     Toast.makeText(junior_second_page_signup.this, "Please enter same password in both the fields", Toast.LENGTH_SHORT).show();
             }
         });
-    }
+*/
+
 }
