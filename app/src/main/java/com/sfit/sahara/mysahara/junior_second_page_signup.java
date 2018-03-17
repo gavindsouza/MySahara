@@ -54,7 +54,7 @@ public class junior_second_page_signup extends Activity {
                 final String contact_num = contact.getText().toString();
                 final String user = username.getText().toString();
 
-                if (pass.equals(confirm_pass)) { /*&&(!f_name.isEmpty())&&(!contact_num.isEmpty())&&(!user.isEmpty())&&(!pass.isEmpty())&&(!confirm_pass.isEmpty())*/
+                if (confirm_pass.equals(pass)) { /*&&(!f_name.isEmpty())&&(!contact_num.isEmpty())&&(!user.isEmpty())&&(!pass.isEmpty())&&(!confirm_pass.isEmpty())*/
                     signup.setEnabled(true);
                     signup.setOnClickListener(new View.OnClickListener() {
                         @Override
