@@ -37,7 +37,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".senior_first_page" />
         <activity android:name=".junior_third_page_details" />
         <activity android:name=".junior_second_page_login" />
         <activity android:name=".junior_second_page_signup" />
