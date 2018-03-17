@@ -1,6 +1,9 @@
 package com.sfit.sahara.mysahara;
 
+import android.annotation.TargetApi;
 import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,12 +16,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class junior_fifth_page_home extends AppCompatActivity {
-   NotificationHelper helper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.junior_fifth_page_home);
-        helper = new NotificationHelper(this);
+
         Button notif = findViewById(R.id.notif);
         Button logout = (Button) findViewById(R.id.log_out);
         TextView text = (TextView) findViewById(R.id.online_status);
@@ -39,7 +42,7 @@ public class junior_fifth_page_home extends AppCompatActivity {
             }
         });
 
-        if (online ==1)
+        if (online == 1)
             text.setText("Current Status: online");
         else
             text.setText("Current Status: offline");
@@ -47,10 +50,17 @@ public class junior_fifth_page_home extends AppCompatActivity {
         notif.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String text = getString(R.string.notificationtext);
-                String title = getString(R.string.notificationtitle);
-                Notification.Builder builder = helper.getsfitchannelnotification(title,text);
-                helper.getManager().notify(0,builder.build());
+                Notification.Builder builder = new Notification.Builder(junior_fifth_page_home.this);
+                Intent intent = new Intent(getApplicationContext(),junior_fifth_page_home.class);
+                PendingIntent pendingIntent = PendingIntent.getActivity(junior_fifth_page_home.this, 01, intent,0);
+                builder.setContentIntent(pendingIntent);
+                builder.setDefaults(Notification.DEFAULT_ALL);
+                builder.setContentTitle("User has left geofence");
+                builder.setSmallIcon(R.mipmap.ic_launcher);
+                builder.setContentText("check on your loved one");
+                builder.setAutoCancel(true);
+                NotificationManager notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+                notificationManager.notify(001, builder.build());
             }
         });
 
