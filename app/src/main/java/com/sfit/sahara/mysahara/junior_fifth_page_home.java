@@ -25,7 +25,7 @@ public class junior_fifth_page_home extends AppCompatActivity {
         Button notif = findViewById(R.id.notif);
         Button logout = (Button) findViewById(R.id.log_out);
         TextView text = (TextView) findViewById(R.id.online_status);
-        Integer online = 1;
+        Boolean online = true;
 
         logout.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -42,7 +42,7 @@ public class junior_fifth_page_home extends AppCompatActivity {
             }
         });
 
-        if (online == 1)
+        if (online)
             text.setText("Current Status: online");
         else
             text.setText("Current Status: offline");
@@ -63,33 +63,23 @@ public class junior_fifth_page_home extends AppCompatActivity {
                 notificationManager.notify(001, builder.build());
             }
         });
-
     }
-
-
-
-
 
     public void onBackPressed() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Do you want to close this application?");
         builder.setCancelable(false);
-
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 finish();
-                //System.exit(0);
             }
         });
-
         builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.cancel();
+            public void onClick(DialogInterface dialogInterface, int i) {dialogInterface.cancel();
             }
         });
-
         AlertDialog alert = builder.create();
         alert.setTitle("Exit");
         alert.show();
