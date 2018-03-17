@@ -53,4 +53,13 @@
         android:textSize="36sp"
         android:visibility="visible"
         tools:text="Current Status:" />
+
+    <Button
+        android:id="@+id/notif"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/online_status"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="153dp"
+        android:text="notify me" />
 </RelativeLayout>
