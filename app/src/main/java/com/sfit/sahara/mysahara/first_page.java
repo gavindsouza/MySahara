@@ -95,7 +95,7 @@ public class first_page extends AppCompatActivity {
                                     edit.putString("Senior Last Name", slname);
                                     edit.commit();
                                     //Log.d(TAG, document.getId() + " => " + document.getData());
-                                    startActivity(new Intent(first_page.this, senior_first_page.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP));
+                                    startActivity(new Intent(first_page.this, senior_second_page.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP));
                                     finish();
                                     break;
                                 }
