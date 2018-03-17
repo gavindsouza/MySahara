@@ -22,4 +22,7 @@
     <string name="re_enter_password">Re-Enter password</string>
     <string name="signup">Signup</string>
     <string name="welcome_to_sahara">WELCOME TO SAHARA!</string>
+    <string name="notificationtitle">User has crossed geofence</string>
+    <string name="notificationtext">Check on your loved one</string>
+    <string name="ticker">ALERT!!</string>
 </resources>
