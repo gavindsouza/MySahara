@@ -27,7 +27,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 public class junior_fifth_page_home extends AppCompatActivity {
-
+    //public double slat=0,slong=0,elat=0,elong=0;
+    public float loc=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +40,7 @@ public class junior_fifth_page_home extends AppCompatActivity {
         Boolean online = true;
         final FusedLocationProviderClient locate= LocationServices.getFusedLocationProviderClient(this);
         FirebaseFirestore db=FirebaseFirestore.getInstance();
+
 
         logout.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -80,41 +82,32 @@ public class junior_fifth_page_home extends AppCompatActivity {
         try{
             final SharedPreferences data = getSharedPreferences("UserData", MODE_PRIVATE);
             final String username =data.getString("Username",null);
-            /* db.collection("users").document(username).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                @Override
-                public void onSuccess(DocumentSnapshot documentSnapshot) {
-                    slat = (Double) documentSnapshot.get("Current Latitude");
-                    slong = (Double) documentSnapshot.get("Current Longitude");
 
-                }
-            }); */
             db.collection("users").document(username).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                     if (task.isSuccessful()) {
                         DocumentSnapshot document = task.getResult();
-                        String s_slat = document.getString("Current Latitude");
-                        String s_slong = document.getString("Current Longitude");
-                        String s_elat = document.getString("Home Longitude");
-                        String s_elong = document.getString("Home Latitude");
 
-                        double slat=0,slong=0,elat=0,elong=0;
-                        float loc;
+                        final double current_latitude = document.getDouble("Current Latitude");
+                        final double current_longitude = document.getDouble("Current Longitude");
+                        final double home_latitude = document.getDouble("Home Longitude");
+                        final double home_longitude = document.getDouble("Home Latitude");
 
-                        slat=Double.parseDouble(s_slat);
-                        slong=Double.parseDouble(s_slong);
-                        elat=Double.parseDouble(s_elat);
-                        elong=Double.parseDouble(s_elong);
+                        Toast.makeText(getApplicationContext(), (String.valueOf(current_latitude)+String.valueOf(current_longitude)),Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), (String.valueOf(home_latitude)+String.valueOf(home_longitude)),Toast.LENGTH_LONG).show();
 
                         Location locationA = new Location("A");
-                        locationA.setLatitude(slat);
-                        locationA.setLongitude(slong);
+                        locationA.setLatitude(current_latitude);
+                        locationA.setLongitude(current_longitude);
                         Location locationB = new Location("B");
-                        locationB.setLatitude(elat);
-                        locationB.setLongitude(elong);
-                        loc=locationA.distanceTo(locationB);
-                        Toast.makeText(getApplicationContext(), (String.valueOf(loc)),Toast.LENGTH_LONG).show();
+                        locationB.setLatitude(home_latitude);
+                        locationB.setLongitude(home_longitude);
+                        loc= locationB.distanceTo(locationA) /1000000;
                     }
+
+                    //if(loc>50)    //50 is the geofence
+                    Toast.makeText(getApplicationContext(), "Person is "+(String.valueOf(loc))+" away from set point",Toast.LENGTH_LONG).show();
                 }
             });
 
