@@ -51,27 +51,31 @@ public class junior_third_page_details extends AppCompatActivity {
             public void onClick(View view) {
                 code = Integer.toString(code_gen());
                 generate.setText(code);
+            }
+        });
+        confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 try {
                     final String f_name=fname.getText().toString();
                     final String l_name=lname.getText().toString();
+                    String lat="";
+                    String lon="";
                     SharedPreferences user = getSharedPreferences("UserData", MODE_PRIVATE);
                     String username = user.getString("Username", null);
                     Map<String, Object> m = new HashMap<>();
                     m.put("Code", code);
                     m.put("Senior First Name",f_name);
                     m.put("Senior Last Name",l_name);
+                    m.put("Home Latitude",lat);
+                    m.put("Home Longitude",lon);
                     db.collection("users").document(username).update(m).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
-                            Toast.makeText(getApplicationContext(), "Name and Code UPDATED", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "Data UPDATED", Toast.LENGTH_LONG).show();
                         }
                     });
                 }catch (Exception e){}
-            }
-        });
-        confirm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
                 startActivity(new Intent(junior_third_page_details.this,junior_fifth_page_home.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK));
                 finish();
             }
