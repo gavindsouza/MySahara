@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.net.Uri;
+import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -21,11 +22,13 @@ import android.widget.Toast;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.security.Permission;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Timer;
 
 public class senior_second_page extends AppCompatActivity {
 
@@ -38,6 +41,7 @@ public class senior_second_page extends AppCompatActivity {
         ImageButton imgbtnMess = findViewById(R.id.imgbtnMess);
         Button logout = findViewById(R.id.senior_log_out);
         final FirebaseFirestore db=FirebaseFirestore.getInstance();
+
         FusedLocationProviderClient locate= LocationServices.getFusedLocationProviderClient(this);
         try {
             final SharedPreferences data = getSharedPreferences("UserData", MODE_PRIVATE);
@@ -76,7 +80,9 @@ public class senior_second_page extends AppCompatActivity {
                 }
             });
 
+
             locate.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
+
                 @Override
                 public void onSuccess(Location location) {
                     if(location!=null){
