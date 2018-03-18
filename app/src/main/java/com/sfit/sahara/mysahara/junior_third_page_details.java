@@ -27,7 +27,7 @@ public class junior_third_page_details extends AppCompatActivity {
     private final int REQUEST_CODE_PLACEPICKER = 1;
     FirebaseFirestore db=FirebaseFirestore.getInstance();
     String code,locate;
-
+    String hlat,hlong;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,18 +57,17 @@ public class junior_third_page_details extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try {
+
                     final String f_name=fname.getText().toString();
                     final String l_name=lname.getText().toString();
-                    String lat="";
-                    String lon="";
                     SharedPreferences user = getSharedPreferences("UserData", MODE_PRIVATE);
                     String username = user.getString("Username", null);
                     Map<String, Object> m = new HashMap<>();
                     m.put("Code", code);
                     m.put("Senior First Name",f_name);
                     m.put("Senior Last Name",l_name);
-                    m.put("Home Latitude",lat);
-                    m.put("Home Longitude",lon);
+                    m.put("Home Latitude",hlat);
+                    m.put("Home Longitude",hlong);
                     db.collection("users").document(username).update(m).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
@@ -99,14 +98,14 @@ public class junior_third_page_details extends AppCompatActivity {
         }
     }
 
-    private void displaySelectedPlaceFromPlacePicker(Intent data) {
+    public void displaySelectedPlaceFromPlacePicker(Intent data) {
         Place placeSelected = PlacePicker.getPlace(this,data);
 
-        String name = placeSelected.getName().toString();
-        String address = placeSelected.getAddress().toString();
+         hlat = String.valueOf(placeSelected.getLatLng().latitude);
+        hlong = String.valueOf(placeSelected.getLatLng().longitude);
 
-        TextView enterCurrentLocation =  findViewById(R.id.txt);
-        enterCurrentLocation.setText(name + ", " + address);
+        TextView enterCurrentLocation =  (TextView) findViewById(R.id.txt);
+        enterCurrentLocation.setText(hlat + ", " + hlong);
     }
 
     public int code_gen(){

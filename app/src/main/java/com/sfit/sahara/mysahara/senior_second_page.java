@@ -2,6 +2,7 @@ package com.sfit.sahara.mysahara;
 
 import android.*;
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -28,6 +29,7 @@ import java.util.Map;
 
 public class senior_second_page extends AppCompatActivity {
 
+    @SuppressLint("MissingPermission")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
