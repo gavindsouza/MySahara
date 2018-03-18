@@ -14,6 +14,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.QuerySnapshot;
 import java.util.HashMap;
 import java.util.Map;
@@ -27,7 +28,7 @@ public class junior_third_page_details extends AppCompatActivity {
     private final int REQUEST_CODE_PLACEPICKER = 1;
     FirebaseFirestore db=FirebaseFirestore.getInstance();
     String code,locate;
-    String hlat,hlong;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,24 +58,27 @@ public class junior_third_page_details extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try {
-
                     final String f_name=fname.getText().toString();
                     final String l_name=lname.getText().toString();
+                    double lat=0;
+                    double lon=0;
                     SharedPreferences user = getSharedPreferences("UserData", MODE_PRIVATE);
                     String username = user.getString("Username", null);
                     Map<String, Object> m = new HashMap<>();
                     m.put("Code", code);
                     m.put("Senior First Name",f_name);
                     m.put("Senior Last Name",l_name);
-                    m.put("Home Latitude",hlat);
-                    m.put("Home Longitude",hlong);
+                    m.put("Home", new GeoPoint(lat,lon));
                     db.collection("users").document(username).update(m).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
                             Toast.makeText(getApplicationContext(), "Data UPDATED", Toast.LENGTH_LONG).show();
                         }
                     });
-                }catch (Exception e){}
+
+                }catch (Exception e){
+                    Toast.makeText(getApplicationContext(),"Debug please",Toast.LENGTH_LONG).show();
+                }
                 startActivity(new Intent(junior_third_page_details.this,junior_fifth_page_home.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK));
                 finish();
             }
@@ -98,14 +102,14 @@ public class junior_third_page_details extends AppCompatActivity {
         }
     }
 
-    public void displaySelectedPlaceFromPlacePicker(Intent data) {
+    private void displaySelectedPlaceFromPlacePicker(Intent data) {
         Place placeSelected = PlacePicker.getPlace(this,data);
 
-         hlat = String.valueOf(placeSelected.getLatLng().latitude);
-        hlong = String.valueOf(placeSelected.getLatLng().longitude);
+        String name = placeSelected.getName().toString();
+        String address = placeSelected.getAddress().toString();
 
-        TextView enterCurrentLocation =  (TextView) findViewById(R.id.txt);
-        enterCurrentLocation.setText(hlat + ", " + hlong);
+        TextView enterCurrentLocation =  findViewById(R.id.txt);
+        enterCurrentLocation.setText(name + ", " + address);
     }
 
     public int code_gen(){
