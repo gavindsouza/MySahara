@@ -2,32 +2,32 @@ package com.sfit.sahara.mysahara;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.QuerySnapshot;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
-import com.google.android.gms.location.places.Place;
-import com.google.android.gms.location.places.ui.PlacePicker;
-
-
 
 public class junior_third_page_details extends AppCompatActivity {
     private final int REQUEST_CODE_PLACEPICKER = 1;
     FirebaseFirestore db=FirebaseFirestore.getInstance();
-    String code,locate;
+    String code;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +46,6 @@ public class junior_third_page_details extends AppCompatActivity {
             }
         });
 
-
         generate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -54,6 +53,7 @@ public class junior_third_page_details extends AppCompatActivity {
                 generate.setText(code);
             }
         });
+
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,11 +83,10 @@ public class junior_third_page_details extends AppCompatActivity {
                 finish();
             }
         });
-    }////
+    }
 
     private void startPlacePickerActivity() {
         PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
-
         try {
             Intent intent = builder.build(this);
             startActivityForResult(intent, REQUEST_CODE_PLACEPICKER);
@@ -95,6 +94,7 @@ public class junior_third_page_details extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
     @Override
     protected  void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_CODE_PLACEPICKER && resultCode == RESULT_OK) {
