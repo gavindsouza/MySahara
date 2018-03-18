@@ -21,6 +21,7 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.GeoPoint;
 
 import java.security.Permission;
 import java.util.HashMap;
@@ -35,15 +36,15 @@ public class senior_second_page extends AppCompatActivity {
         ImageButton imgbtnCall = findViewById(R.id.imgbtnCall);
         ImageButton imgbtnMess = findViewById(R.id.imgbtnMess);
         Button logout = findViewById(R.id.senior_log_out);
-        final FirebaseFirestore db=FirebaseFirestore.getInstance();
-        FusedLocationProviderClient locate= LocationServices.getFusedLocationProviderClient(this);
+        final FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FusedLocationProviderClient locate = LocationServices.getFusedLocationProviderClient(this);
         try {
             final SharedPreferences data = getSharedPreferences("UserData", MODE_PRIVATE);
-            final String contact =data.getString("Contact",null);
-            final String sfname = data.getString("Senior First Name",null);
-            final String slname = data.getString("Senior Last Name",null);
-            final String user = data.getString("Username",null);
-            Toast.makeText(getApplicationContext(),"Hi "+sfname+" "+slname,Toast.LENGTH_LONG);
+            final String contact = data.getString("Contact", null);
+            final String sfname = data.getString("Senior First Name", null);
+            final String slname = data.getString("Senior Last Name", null);
+            final String user = data.getString("Username", null);
+            Toast.makeText(getApplicationContext(), "Hi " + sfname + " " + slname, Toast.LENGTH_LONG);
 
             imgbtnCall.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -69,23 +70,26 @@ public class senior_second_page extends AppCompatActivity {
                     SharedPreferences.Editor edit = data.edit();
                     edit.clear();
                     edit.commit();
-                    startActivity(new Intent(senior_second_page.this,first_page.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK));
+                    startActivity(new Intent(senior_second_page.this, first_page.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK));
                     finish();
                 }
             });
 
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                return;
+            }
             locate.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
                 @Override
                 public void onSuccess(Location location) {
-                    if(location!=null){
+                    if (location != null) {
                         Map<String, Object> m = new HashMap<>();
-                        m.put("Current Latitude",location.getLatitude());
-                        m.put("Current Longitude",location.getLongitude());
-                        m.put("Location",location.toString());
+                        //m.put("Current Latitude",location.getLatitude());
+                        //m.put("Current Longitude",location.getLongitude());
+                        m.put("Current", new GeoPoint(location.getLatitude(), location.getLongitude()));
                         db.collection("users").document(user).update(m).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                Toast.makeText(getApplicationContext(),"location is updated",Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(), "location is updated", Toast.LENGTH_LONG).show();
                             }
                         });
                     }

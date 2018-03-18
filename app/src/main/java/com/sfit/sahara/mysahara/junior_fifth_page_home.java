@@ -1,6 +1,5 @@
 package com.sfit.sahara.mysahara;
 
-import android.annotation.TargetApi;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -16,28 +15,24 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.GeoPoint;
 
 public class junior_fifth_page_home extends AppCompatActivity {
-    //public double slat=0,slong=0,elat=0,elong=0;
-    public float loc=0;
+    public float loc=0; //variable for setting geofence distance
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.junior_fifth_page_home);
 
         Button notif = findViewById(R.id.notif);
-        Button logout = (Button) findViewById(R.id.log_out);
-        TextView text = (TextView) findViewById(R.id.online_status);
-        Boolean online = true;
+        Button logout = findViewById(R.id.log_out);
+
         final FusedLocationProviderClient locate= LocationServices.getFusedLocationProviderClient(this);
         FirebaseFirestore db=FirebaseFirestore.getInstance();
 
@@ -56,11 +51,6 @@ public class junior_fifth_page_home extends AppCompatActivity {
                 }
             }
         });
-
-        if (online)
-            text.setText("Current Status: online");
-        else
-            text.setText("Current Status: offline");
 
         notif.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,30 +78,25 @@ public class junior_fifth_page_home extends AppCompatActivity {
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                     if (task.isSuccessful()) {
                         DocumentSnapshot document = task.getResult();
+                        GeoPoint home= document.getGeoPoint("Home");
+                        GeoPoint current = document.getGeoPoint("Current");
+                        Location curr=new Location("A");
+                        Location hom=new Location("B");
 
-                        final double current_latitude = document.getDouble("Current Latitude");
-                        final double current_longitude = document.getDouble("Current Longitude");
-                        final double home_latitude = document.getDouble("Home Longitude");
-                        final double home_longitude = document.getDouble("Home Latitude");
+                        double current_latitude = current.getLatitude();
+                        double current_longitude = current.getLongitude();
+                        double home_latitude = home.getLatitude();
+                        double home_longitude = home.getLongitude();
 
-                        Toast.makeText(getApplicationContext(), (String.valueOf(current_latitude)+String.valueOf(current_longitude)),Toast.LENGTH_LONG).show();
-                        Toast.makeText(getApplicationContext(), (String.valueOf(home_latitude)+String.valueOf(home_longitude)),Toast.LENGTH_LONG).show();
+                        curr.setLongitude(current_longitude);
+                        curr.setLatitude(current_latitude);
+                        hom.setLatitude(home_latitude);
+                        hom.setLongitude(home_longitude);
 
-                        Location locationA = new Location("A");
-                        locationA.setLatitude(current_latitude);
-                        locationA.setLongitude(current_longitude);
-                        Location locationB = new Location("B");
-                        locationB.setLatitude(home_latitude);
-                        locationB.setLongitude(home_longitude);
-                        loc= locationB.distanceTo(locationA) /1000000;
+                        Toast.makeText(getApplicationContext(), "Person is "+(curr.distanceTo(hom))+" metres away from set point",Toast.LENGTH_LONG).show();
                     }
-
-                    //if(loc>50)    //50 is the geofence
-                    Toast.makeText(getApplicationContext(), "Person is "+(String.valueOf(loc))+" away from set point",Toast.LENGTH_LONG).show();
                 }
             });
-
-            //Location.distanceBetween(slat, slong, elat, elong);
         }catch (Exception e){}
     }
 
