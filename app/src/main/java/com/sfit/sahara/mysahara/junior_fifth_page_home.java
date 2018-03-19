@@ -1,14 +1,17 @@
 package com.sfit.sahara.mysahara;
 
+import android.app.Fragment;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -18,6 +21,13 @@ import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.MapsInitializer;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -35,9 +45,7 @@ public class junior_fifth_page_home extends AppCompatActivity {
         Button logout = findViewById(R.id.log_out);
         final TextView code = findViewById(R.id.code);
 
-        final FusedLocationProviderClient locate= LocationServices.getFusedLocationProviderClient(this);
         FirebaseFirestore db=FirebaseFirestore.getInstance();
-
 
         logout.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -126,5 +134,4 @@ public class junior_fifth_page_home extends AppCompatActivity {
         alert.setTitle("Exit");
         alert.show();
     }
-
 }
