@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -24,6 +26,7 @@ public class junior_second_page_signup extends Activity {
     private EditText fname, lname, contact, username, password, confirm;
     Button signup;
     private String f_name, l_name, contact_num, user, pass, confirm_pass;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.junior_second_page_signup);
@@ -38,6 +41,22 @@ public class junior_second_page_signup extends Activity {
         confirm = findViewById(R.id.etConfirmPass);
         signup = findViewById(R.id.btnSignup);
 
+        signup.setEnabled(false);
+        confirm.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            @Override
+            public void afterTextChanged(Editable editable) {
+                try{
+                    String pass = password.getText().toString();
+                    String confirm_pass = confirm.getText().toString();
+                    if (confirm_pass.equals(pass))
+                        signup.setEnabled(true);
+                }catch (Exception e){}
+            }
+        });
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,6 +64,7 @@ public class junior_second_page_signup extends Activity {
             }
         });
     }
+
     public void register(){
         initialize();
         if (!validate()){
@@ -54,6 +74,7 @@ public class junior_second_page_signup extends Activity {
             onSignupSuccess();
         }
     }
+
     public void initialize(){
         f_name = fname.getText().toString().trim();
         l_name = lname.getText().toString().trim();
@@ -62,6 +83,7 @@ public class junior_second_page_signup extends Activity {
         pass = password.getText().toString().trim();
         confirm_pass = confirm.getText().toString().trim();
     }
+
     public boolean validate(){
         boolean valid = true;
         if (f_name.isEmpty()){
@@ -95,6 +117,7 @@ public class junior_second_page_signup extends Activity {
 
         return valid;
     }
+
     public void onSignupSuccess(){
         Map<String, Object> m = new HashMap<>();
         m.put("First Name", f_name);
@@ -148,8 +171,8 @@ public class junior_second_page_signup extends Activity {
                 String l_name = lname.getText().toString();
                 String contact_num = contact.getText().toString();
                 String user = username.getText().toString();
-*/
-              /*  if (confirm_pass.equals(pass)) {
+
+                if (confirm_pass.equals(pass)) {
                     signup.setEnabled(true);
                     signup.setOnClickListener(new View.OnClickListener() {
                         @Override
