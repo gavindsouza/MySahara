@@ -13,6 +13,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -30,8 +31,9 @@ public class junior_fifth_page_home extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.junior_fifth_page_home);
 
-        Button notif = findViewById(R.id.notif);
+        final Button notif = findViewById(R.id.notif);
         Button logout = findViewById(R.id.log_out);
+        final TextView code = findViewById(R.id.code);
 
         final FusedLocationProviderClient locate= LocationServices.getFusedLocationProviderClient(this);
         FirebaseFirestore db=FirebaseFirestore.getInstance();
@@ -52,6 +54,41 @@ public class junior_fifth_page_home extends AppCompatActivity {
             }
         });
 
+        try{
+            final SharedPreferences data = getSharedPreferences("UserData", MODE_PRIVATE);
+            final String username =data.getString("Username",null);
+            final String codes=data.getString("Code",null);
+            db.collection("users").document(username).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        GeoPoint home= document.getGeoPoint("Home");
+                        GeoPoint current = document.getGeoPoint("Current");
+                        Location curr=new Location("A");
+                        Location hom=new Location("B");
+                        try {
+                            double current_latitude = current.getLatitude();
+                            double current_longitude = current.getLongitude();
+                            double home_latitude = home.getLatitude();
+                            double home_longitude = home.getLongitude();
+
+                            curr.setLongitude(current_longitude);
+                            curr.setLatitude(current_latitude);
+                            hom.setLatitude(home_latitude);
+                            hom.setLongitude(home_longitude);
+                        }catch (Exception e){
+                            Toast.makeText(getApplicationContext(),"Add generated Code in Senior's Side",Toast.LENGTH_LONG).show();
+                            code.setText("Code:"+codes);
+                        }
+                        Toast.makeText(getApplicationContext(), "Person is "+(curr.distanceTo(hom))+" metres away from set point",Toast.LENGTH_LONG).show();
+                        if(loc>100)
+                            notif.setEnabled(true);
+                    }
+                }
+            });
+        }catch (Exception e){}
+
         notif.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,36 +105,6 @@ public class junior_fifth_page_home extends AppCompatActivity {
                 notificationManager.notify(001, builder.build());
             }
         });
-
-        try{
-            final SharedPreferences data = getSharedPreferences("UserData", MODE_PRIVATE);
-            final String username =data.getString("Username",null);
-
-            db.collection("users").document(username).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                    if (task.isSuccessful()) {
-                        DocumentSnapshot document = task.getResult();
-                        GeoPoint home= document.getGeoPoint("Home");
-                        GeoPoint current = document.getGeoPoint("Current");
-                        Location curr=new Location("A");
-                        Location hom=new Location("B");
-
-                        double current_latitude = current.getLatitude();
-                        double current_longitude = current.getLongitude();
-                        double home_latitude = home.getLatitude();
-                        double home_longitude = home.getLongitude();
-
-                        curr.setLongitude(current_longitude);
-                        curr.setLatitude(current_latitude);
-                        hom.setLatitude(home_latitude);
-                        hom.setLongitude(home_longitude);
-
-                        Toast.makeText(getApplicationContext(), "Person is "+(curr.distanceTo(hom))+" metres away from set point",Toast.LENGTH_LONG).show();
-                    }
-                }
-            });
-        }catch (Exception e){}
     }
 
     public void onBackPressed() {
