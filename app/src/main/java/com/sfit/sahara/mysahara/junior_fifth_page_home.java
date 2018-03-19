@@ -13,8 +13,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
+
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -43,7 +43,7 @@ public class junior_fifth_page_home extends AppCompatActivity {
                     SharedPreferences data = getSharedPreferences("UserData", MODE_PRIVATE);
                     SharedPreferences.Editor edit = data.edit();
                     edit.clear();
-                    edit.commit();
+                    edit.apply();
                     startActivity(new Intent(junior_fifth_page_home.this, first_page.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK));
                     finish();
                 } catch (Exception e) {
