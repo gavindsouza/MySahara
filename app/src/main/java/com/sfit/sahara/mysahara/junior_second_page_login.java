@@ -58,7 +58,6 @@ public class junior_second_page_login extends Activity {
                         login.setEnabled(true);
                 }
             });
-                    //.setEnabled(true);
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,6 +82,7 @@ public class junior_second_page_login extends Activity {
                                     edit.putString("Contact",document.getString("Contact"));
                                     edit.putString("Senior First Name",document.getString("Senior First Name"));
                                     edit.putString("Senior Last Name",document.getString("Senior Last Name"));
+                                    edit.putString("Code",document.getString("Code"));
                                     edit.commit();
                                     //String a =userdata.getString("Username",null);
                                     //Toast.makeText(getApplicationContext(),a,Toast.LENGTH_LONG).show();

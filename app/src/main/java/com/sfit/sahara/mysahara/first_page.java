@@ -43,7 +43,7 @@ public class first_page extends AppCompatActivity {
 
         try {
             Toast.makeText(getApplicationContext(), data.getString("Code", null), Toast.LENGTH_LONG).show();
-            if (!data.getString("Code", null).isEmpty() || data.getString("Code", null) == "") {
+            if ((!data.getString("Code", null).isEmpty() || data.getString("Code", null) == "")&&data.getString("Type",null).equals("Senior")) {
                 startActivity(new Intent(first_page.this, senior_second_page.class));
                 finish();
             }
@@ -68,9 +68,12 @@ public class first_page extends AppCompatActivity {
             btnSubmit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(first_page.this, "This might take a while", Toast.LENGTH_SHORT).show();
                     final String code = etAddCode.getText().toString();
                     final Editor edit = data.edit();
+                    if(code.isEmpty())
+                        Toast.makeText(first_page.this, "Enter Code first", Toast.LENGTH_SHORT).show();
+                    else
+                        Toast.makeText(first_page.this, "This might take a while", Toast.LENGTH_SHORT).show();
                     //final int flag;
                     CollectionReference usersRef = db.collection("users");
                     //check if code is matching with code in database)
@@ -88,6 +91,7 @@ public class first_page extends AppCompatActivity {
                                     edit.putString("Contact", contact);
                                     edit.putString("Senior First Name", sfname);
                                     edit.putString("Senior Last Name", slname);
+                                    edit.putString("Type","Senior");
                                     edit.apply();
                                     //Log.d(TAG, document.getId() + " => " + document.getData());
                                     startActivity(new Intent(first_page.this, senior_second_page.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP));

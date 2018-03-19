@@ -22,7 +22,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
-    <com.google.android.gms.maps.MapView
+    <!--com.google.android.gms.maps.MapView
         android:id="@+id/view_location"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -33,33 +33,37 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="parent"
-        app:layout_constraintVertical_bias="0.10" />
+        app:layout_constraintVertical_bias="0.10" /-->
 
     <TextView
-        android:id="@+id/online_status"
+        android:id="@+id/code"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="50sp"
         android:layout_marginTop="350sp"
-        android:contentDescription="Current Status:"
+        android:contentDescription="Active Code"
         android:fontFamily="sans-serif-condensed"
-        android:text="Current Status:"
         android:textAlignment="center"
         android:textColor="@android:color/holo_orange_dark"
         android:textColorHighlight="@color/colorPrimaryDark"
         android:textColorHint="@color/common_google_signin_btn_text_dark_focused"
         android:textSize="36sp"
-        android:visibility="visible"
-        tools:text="Current Status:" />
+        android:visibility="visible" />
 
     <Button
         android:id="@+id/notif"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/online_status"
+        android:layout_alignBottom="@+id/code"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="153dp"
         android:text="notify me" />
+
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        android:name="com.google.android.gms.maps.MapFragment"
+        android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 </RelativeLayout>

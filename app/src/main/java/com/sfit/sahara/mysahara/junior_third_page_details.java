@@ -63,7 +63,13 @@ public class junior_third_page_details extends AppCompatActivity {
                     double lat=0;
                     double lon=0;
                     SharedPreferences user = getSharedPreferences("UserData", MODE_PRIVATE);
+                    SharedPreferences.Editor edit = user.edit();
+                    edit.putString("Code",code);
+                    edit.putString("Senior First Name",f_name);
+                    edit.putString("Senior Last Name",l_name);
+                    edit.apply();
                     String username = user.getString("Username", null);
+
                     Map<String, Object> m = new HashMap<>();
                     m.put("Code", code);
                     m.put("Senior First Name",f_name);
