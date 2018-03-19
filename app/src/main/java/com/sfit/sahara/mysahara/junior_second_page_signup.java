@@ -6,18 +6,16 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,13 +30,13 @@ public class junior_second_page_signup extends Activity {
 
         db = FirebaseFirestore.getInstance();
 
-        fname = (EditText) findViewById(R.id.etFname);
-        lname = (EditText) findViewById(R.id.etLname);
-        contact = (EditText) findViewById(R.id.etContact);
-        username = (EditText) findViewById(R.id.etUsername);
-        password = (EditText) findViewById(R.id.etPass);
-        confirm = (EditText) findViewById(R.id.etConfirmPass);
-        signup = (Button) findViewById(R.id.btnSignup);
+        fname = findViewById(R.id.etFname);
+        lname = findViewById(R.id.etLname);
+        contact = findViewById(R.id.etContact);
+        username = findViewById(R.id.etUsername);
+        password = findViewById(R.id.etPass);
+        confirm = findViewById(R.id.etConfirmPass);
+        signup = findViewById(R.id.btnSignup);
 
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,7 +120,7 @@ public class junior_second_page_signup extends Activity {
                 edit.putString("Last Name",l_name);
                 edit.putString("Senior First Name","xabsttc");
                 edit.putString("Senior Last Name","");
-                edit.commit();
+                edit.apply();
                 startActivity(new Intent(junior_second_page_signup.this,junior_second_page_login.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK));
                 finish();
             }
