@@ -27,7 +27,7 @@ import java.util.Random;
 public class junior_third_page_details extends AppCompatActivity {
     private final int REQUEST_CODE_PLACEPICKER = 1;
     FirebaseFirestore db=FirebaseFirestore.getInstance();
-    String code;
+    String code,hlat,hlong;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +37,7 @@ public class junior_third_page_details extends AppCompatActivity {
         Button confirm=findViewById(R.id.confirm);
         final EditText fname=findViewById(R.id.fname);
         final EditText lname=findViewById(R.id.lname);
+        final EditText geo=findViewById(R.id.geofence);
         Button go = findViewById(R.id.show_loc);
 
         go.setOnClickListener(new View.OnClickListener() {
@@ -60,13 +61,15 @@ public class junior_third_page_details extends AppCompatActivity {
                 try {
                     final String f_name=fname.getText().toString();
                     final String l_name=lname.getText().toString();
-                    double lat=0;
-                    double lon=0;
+                    final String geo_fence=geo.getText().toString();
+                    double lat= Double.parseDouble(hlat);
+                    double lon=Double.parseDouble(hlong);
                     SharedPreferences user = getSharedPreferences("UserData", MODE_PRIVATE);
                     SharedPreferences.Editor edit = user.edit();
                     edit.putString("Code",code);
                     edit.putString("Senior First Name",f_name);
                     edit.putString("Senior Last Name",l_name);
+                    edit.putString("Geofence",geo_fence);
                     edit.apply();
                     String username = user.getString("Username", null);
 
@@ -75,6 +78,7 @@ public class junior_third_page_details extends AppCompatActivity {
                     m.put("Senior First Name",f_name);
                     m.put("Senior Last Name",l_name);
                     m.put("Home", new GeoPoint(lat,lon));
+                    m.put("Geofence",geo_fence);
                     db.collection("users").document(username).update(m).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
@@ -110,9 +114,10 @@ public class junior_third_page_details extends AppCompatActivity {
 
     private void displaySelectedPlaceFromPlacePicker(Intent data) {
         Place placeSelected = PlacePicker.getPlace(this,data);
-
-        String name = placeSelected.getName().toString();
+         String name = placeSelected.getName().toString();
         String address = placeSelected.getAddress().toString();
+         hlat = String.valueOf(placeSelected.getLatLng().latitude);
+         hlong = String.valueOf(placeSelected.getLatLng().longitude);
 
         TextView enterCurrentLocation =  findViewById(R.id.txt);
         enterCurrentLocation.setText(name + ", " + address);

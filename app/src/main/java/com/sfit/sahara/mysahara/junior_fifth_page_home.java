@@ -35,17 +35,16 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
 
 public class junior_fifth_page_home extends AppCompatActivity {
-    public float loc=0; //variable for setting geofence distance
+      int g;//variable for setting geofence distance
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.junior_fifth_page_home);
 
-        final Button notif = findViewById(R.id.notif);
         Button logout = findViewById(R.id.log_out);
         final TextView code = findViewById(R.id.code);
 
-        FirebaseFirestore db=FirebaseFirestore.getInstance();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         logout.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -62,19 +61,21 @@ public class junior_fifth_page_home extends AppCompatActivity {
             }
         });
 
-        try{
+        try {
             final SharedPreferences data = getSharedPreferences("UserData", MODE_PRIVATE);
-            final String username =data.getString("Username",null);
-            final String codes=data.getString("Code",null);
+            final String username = data.getString("Username", null);
+            final String codes = data.getString("Code", null);
+
             db.collection("users").document(username).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                     if (task.isSuccessful()) {
                         DocumentSnapshot document = task.getResult();
-                        GeoPoint home= document.getGeoPoint("Home");
+                        GeoPoint home = document.getGeoPoint("Home");
                         GeoPoint current = document.getGeoPoint("Current");
-                        Location curr=new Location("A");
-                        Location hom=new Location("B");
+                        Location curr = new Location("A");
+                        Location hom = new Location("B");
+                        final String ge = document.getString("Geofence");
                         try {
                             double current_latitude = current.getLatitude();
                             double current_longitude = current.getLongitude();
@@ -85,34 +86,30 @@ public class junior_fifth_page_home extends AppCompatActivity {
                             curr.setLatitude(current_latitude);
                             hom.setLatitude(home_latitude);
                             hom.setLongitude(home_longitude);
-                        }catch (Exception e){
-                            Toast.makeText(getApplicationContext(),"Add generated Code in Senior's Side",Toast.LENGTH_LONG).show();
-                            code.setText("Code:"+codes);
+                            g = Integer.parseInt(ge);
+                        } catch (Exception e) {
+                            Toast.makeText(getApplicationContext(), "Add generated Code in Senior's Side", Toast.LENGTH_LONG).show();
+                            code.setText("Code:" + codes);
                         }
-                        Toast.makeText(getApplicationContext(), "Person is "+(curr.distanceTo(hom))+" metres away from set point",Toast.LENGTH_LONG).show();
-                        if(loc>100)
-                            notif.setEnabled(true);
+                        Toast.makeText(getApplicationContext(), "Person is " + (curr.distanceTo(hom)) + " metres away from set point", Toast.LENGTH_LONG).show();
+                        if (curr.distanceTo(hom) > g) {
+                            Notification.Builder builder = new Notification.Builder(junior_fifth_page_home.this);
+                            Intent intent = new Intent(getApplicationContext(), junior_fifth_page_home.class);
+                            PendingIntent pendingIntent = PendingIntent.getActivity(junior_fifth_page_home.this, 01, intent, 0);
+                            builder.setContentIntent(pendingIntent);
+                            builder.setDefaults(Notification.DEFAULT_ALL);
+                            builder.setContentTitle("User has left geofence");
+                            builder.setSmallIcon(R.mipmap.ic_launcher);
+                            builder.setContentText("check on your loved one");
+                            builder.setAutoCancel(true);
+                            NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                            notificationManager.notify(001, builder.build());
+                        }
                     }
                 }
             });
-        }catch (Exception e){}
-
-        notif.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Notification.Builder builder = new Notification.Builder(junior_fifth_page_home.this);
-                Intent intent = new Intent(getApplicationContext(),junior_fifth_page_home.class);
-                PendingIntent pendingIntent = PendingIntent.getActivity(junior_fifth_page_home.this, 01, intent,0);
-                builder.setContentIntent(pendingIntent);
-                builder.setDefaults(Notification.DEFAULT_ALL);
-                builder.setContentTitle("User has left geofence");
-                builder.setSmallIcon(R.mipmap.ic_launcher);
-                builder.setContentText("check on your loved one");
-                builder.setAutoCancel(true);
-                NotificationManager notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
-                notificationManager.notify(001, builder.build());
-            }
-        });
+        } catch (Exception e) {
+        }
     }
 
     public void onBackPressed() {

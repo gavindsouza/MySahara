@@ -13,7 +13,7 @@ public class junior_second_page_after_login_signup extends AppCompatActivity {
         SharedPreferences user = getSharedPreferences("UserData", MODE_PRIVATE);
         //Toast.makeText(getApplicationContext(),user.getString("Username",null),Toast.LENGTH_LONG).show();
         try {
-            String temp=user.getString("Senior First Name", null);
+            String temp= user.getString("Username", null);
             Toast.makeText(getApplicationContext(),temp,Toast.LENGTH_LONG).show();
             assert temp != null;
             if (temp.equals("xabsttc"))
