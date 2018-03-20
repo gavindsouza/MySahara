@@ -51,7 +51,7 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyA2hxE7Q2CunOikmFtiHBxTLOxuXpYHx4s" />
+            android:value="AIzaSyD_oTVIPOs7ok9o0ku-5A_eflReE_jY3qM" />
 
         <activity
             android:name=".junior_add_location"
