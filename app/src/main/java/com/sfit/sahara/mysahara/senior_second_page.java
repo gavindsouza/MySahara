@@ -17,7 +17,11 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
@@ -26,6 +30,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class senior_second_page extends AppCompatActivity {
+    FusedLocationProviderClient locate;
+    LocationRequest mLocationRequest;
+    //LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder().addLocationRequest(mLocationRequest);
+    boolean mRequestingLocationUpdates = true;
+    LocationCallback mLocationCallback;
+
+   // protected void createLocationRequest() {
+
+    //}
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +47,14 @@ public class senior_second_page extends AppCompatActivity {
         ImageButton imgbtnCall = findViewById(R.id.imgbtnCall);
         ImageButton imgbtnMess = findViewById(R.id.imgbtnMess);
         Button logout = findViewById(R.id.senior_log_out);
+        locate = LocationServices.getFusedLocationProviderClient(this);
+
+        mLocationRequest = new LocationRequest();
+        mLocationRequest.setInterval(10000);
+        mLocationRequest.setFastestInterval(5000);
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+
         final FirebaseFirestore db = FirebaseFirestore.getInstance();
-        FusedLocationProviderClient locate = LocationServices.getFusedLocationProviderClient(this);
         try {
             final SharedPreferences data = getSharedPreferences("UserData", MODE_PRIVATE);
             final String contact = data.getString("Contact", null);
@@ -76,6 +95,7 @@ public class senior_second_page extends AppCompatActivity {
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 return;
             }
+
             locate.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
                 @Override
                 public void onSuccess(Location location) {
@@ -91,10 +111,70 @@ public class senior_second_page extends AppCompatActivity {
                     }
                 }
             });
-        }catch(Exception e){
-            Toast.makeText(getApplicationContext(),"Something Happened",Toast.LENGTH_SHORT).show();
+
+            mLocationCallback = new LocationCallback() {
+                @Override
+                public void onLocationResult(LocationResult locationResult) {
+                    if (locationResult == null) {
+                        return;
+                    }
+                    for (Location location : locationResult.getLocations()) {
+                        // Update db with location data
+                        Map<String, Object> m = new HashMap<>();
+                        m.put("Current", new GeoPoint(location.getLatitude(), location.getLongitude()));
+                        db.collection("users").document(user).update(m).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(getApplicationContext(), "location is updated", Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }
+                };
+            };
+
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(), "Something Happened", Toast.LENGTH_SHORT).show();
         }
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mRequestingLocationUpdates = true;
+        if (mRequestingLocationUpdates) {
+            startLocationUpdates();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mRequestingLocationUpdates = false;
+        stopLocationUpdates();
+    }
+
+    private void stopLocationUpdates() {
+        locate.removeLocationUpdates(mLocationCallback);
+    }
+
+    private void startLocationUpdates() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        locate.requestLocationUpdates(mLocationRequest,
+                mLocationCallback,
+                null /* Looper */);
+    }
+
+
+
 
     public void onBackPressed() {
         AlertDialog.Builder builder = new AlertDialog.Builder(senior_second_page.this);
