@@ -1,5 +1,6 @@
 package com.sfit.sahara.mysahara;
 
+import android.*;
 import android.app.Fragment;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -21,6 +22,9 @@ import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
@@ -36,15 +40,25 @@ import com.google.firebase.firestore.GeoPoint;
 
 public class junior_fifth_page_home extends AppCompatActivity {
       int g;//variable for setting geofence distance
+    FusedLocationProviderClient locate;
+    LocationRequest mLocationRequest;
+    boolean mRequestingLocationUpdates = true;
+    LocationCallback mLocationCallback;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.junior_fifth_page_home);
+        locate = LocationServices.getFusedLocationProviderClient(this);
+        mLocationRequest = new LocationRequest();
+        mLocationRequest.setInterval(10000);
+        mLocationRequest.setFastestInterval(5000);
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+
 
         Button logout = findViewById(R.id.log_out);
         final TextView code = findViewById(R.id.code);
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         logout.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -62,57 +76,105 @@ public class junior_fifth_page_home extends AppCompatActivity {
         });
 
         try {
-            final SharedPreferences data = getSharedPreferences("UserData", MODE_PRIVATE);
-            final String username = data.getString("Username", null);
-            final String codes = data.getString("Code", null);
-
-            db.collection("users").document(username).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            mLocationCallback = new LocationCallback() {
                 @Override
-                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                    if (task.isSuccessful()) {
-                        DocumentSnapshot document = task.getResult();
-                        GeoPoint home = document.getGeoPoint("Home");
-                        GeoPoint current = document.getGeoPoint("Current");
-                        Location curr = new Location("A");
-                        Location hom = new Location("B");
-                        final String ge = document.getString("Geofence");
-                        try {
-                            double current_latitude = current.getLatitude();
-                            double current_longitude = current.getLongitude();
-                            double home_latitude = home.getLatitude();
-                            double home_longitude = home.getLongitude();
+                public void onLocationResult(LocationResult locationResult) {
+                    if (locationResult == null) {
+                        return;
+                    }
+                    for (Location location : locationResult.getLocations()) {
+                        final SharedPreferences data = getSharedPreferences("UserData", MODE_PRIVATE);
+                        final String username = data.getString("Username", null);
+                        final String codes = data.getString("Code", null);
 
-                            curr.setLongitude(current_longitude);
-                            curr.setLatitude(current_latitude);
-                            hom.setLatitude(home_latitude);
-                            hom.setLongitude(home_longitude);
-                            g = Integer.parseInt(ge);
-                        } catch (Exception e) {
-                            Toast.makeText(getApplicationContext(), "Add generated Code in Senior's Side", Toast.LENGTH_LONG).show();
-                            code.setText("Code:" + codes);
-                        }
-                        Toast.makeText(getApplicationContext(), "Person is " + (curr.distanceTo(hom)) + " metres away from set point", Toast.LENGTH_LONG).show();
-                        if (curr.distanceTo(hom) > g) {
-                            Notification.Builder builder = new Notification.Builder(junior_fifth_page_home.this);
-                            Intent intent = new Intent(getApplicationContext(), junior_fifth_page_home.class);
-                            PendingIntent pendingIntent = PendingIntent.getActivity(junior_fifth_page_home.this, 01, intent, 0);
-                            builder.setContentIntent(pendingIntent);
-                            builder.setDefaults(Notification.DEFAULT_ALL);
-                            builder.setContentTitle("User has left geofence");
-                            builder.setSmallIcon(R.mipmap.ic_launcher);
-                            builder.setContentText("check on your loved one");
-                            builder.setAutoCancel(true);
-                            NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-                            notificationManager.notify(001, builder.build());
-                        }
+                        db.collection("users").document(username).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot document = task.getResult();
+                                    GeoPoint home = document.getGeoPoint("Home");
+                                    GeoPoint current = document.getGeoPoint("Current");
+                                    Location curr = new Location("A");
+                                    Location hom = new Location("B");
+                                    final String ge = document.getString("Geofence");
+                                    try {
+                                        double current_latitude = current.getLatitude();
+                                        double current_longitude = current.getLongitude();
+                                        double home_latitude = home.getLatitude();
+                                        double home_longitude = home.getLongitude();
+
+                                        curr.setLongitude(current_longitude);
+                                        curr.setLatitude(current_latitude);
+                                        hom.setLatitude(home_latitude);
+                                        hom.setLongitude(home_longitude);
+                                        g = Integer.parseInt(ge);
+                                    } catch (Exception e) {
+                                        Toast.makeText(getApplicationContext(), "Add generated Code in Senior's Side", Toast.LENGTH_LONG).show();
+                                        code.setText("Code:" + codes);
+                                    }
+                                    Toast.makeText(getApplicationContext(), "Person is " + (curr.distanceTo(hom)) + " metres away from set point", Toast.LENGTH_LONG).show();
+                                    if (curr.distanceTo(hom) > g) {
+                                        Notification.Builder builder = new Notification.Builder(junior_fifth_page_home.this);
+                                        Intent intent = new Intent(getApplicationContext(), junior_fifth_page_home.class);
+                                        PendingIntent pendingIntent = PendingIntent.getActivity(junior_fifth_page_home.this, 01, intent, 0);
+                                        builder.setContentIntent(pendingIntent);
+                                        builder.setDefaults(Notification.DEFAULT_ALL);
+                                        builder.setContentTitle("User has left geofence");
+                                        builder.setSmallIcon(R.mipmap.ic_launcher);
+                                        builder.setContentText("check on your loved one");
+                                        builder.setAutoCancel(true);
+                                        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                                        notificationManager.notify(001, builder.build());
+                                    }
+                                }
+                            }
+                        });
                     }
                 }
-            });
+
+
+            };
         } catch (Exception e) {
         }
     }
 
-    public void onBackPressed() {
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mRequestingLocationUpdates = true;
+        if (mRequestingLocationUpdates) {
+            startLocationUpdates();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mRequestingLocationUpdates = false;
+        stopLocationUpdates();
+    }
+
+    private void stopLocationUpdates() {
+        locate.removeLocationUpdates(mLocationCallback);
+    }
+
+    private void startLocationUpdates() {
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        locate.requestLocationUpdates(mLocationRequest,
+                mLocationCallback,
+                null /* Looper */);
+    }
+
+    public void onBackPressed(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Do you want to close this application?");
         builder.setCancelable(false);
