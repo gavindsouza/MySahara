@@ -25,4 +25,9 @@
     <string name="notificationtitle">User has crossed geofence</string>
     <string name="notificationtext">Check on your loved one</string>
     <string name="ticker">ALERT!!</string>
+    <string name="title_activity_track" />
+    <string name="title_activity_Track">Track</string>
+    <string name="title_activity_login">Login</string>
+    <string name="title_activity_signUp">Sign up</string>
+    <string name="logo">logo</string>
 </resources>

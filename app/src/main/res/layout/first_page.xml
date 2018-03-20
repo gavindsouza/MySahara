@@ -20,9 +20,10 @@
         android:id="@+id/etAddCode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
         android:layout_below="@+id/or"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="58dp"
+        android:layout_marginEnd="70dp"
+        android:layout_marginTop="54dp"
         android:ems="10"
         android:hint="@string/add_code"
         android:inputType="number" />
@@ -34,7 +35,9 @@
         android:layout_below="@+id/etAddCode"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="14dp"
-        android:text="@string/submit" />
+        android:background="@color/cardview_dark_background"
+        android:text="@string/submit"
+        android:textColor="@color/cardview_light_background" />
 
     <Button
         android:id="@+id/btnlogin"
@@ -42,8 +45,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignStart="@+id/btnSubmit"
-        android:layout_marginTop="28dp"
-        android:text="@string/gotologin" />
+        android:layout_marginTop="30dp"
+        android:background="@color/cardview_dark_background"
+        android:text="@string/gotologin"
+        android:textColor="@color/cardview_light_background" />
 
     <Button
         android:id="@+id/btnsignup"
@@ -52,5 +57,7 @@
         android:layout_alignStart="@+id/btnlogin"
         android:layout_below="@+id/btnlogin"
         android:layout_marginTop="53dp"
-        android:text="@string/gotosignup" />
+        android:background="@color/cardview_dark_background"
+        android:text="@string/gotosignup"
+        android:textColor="@color/cardview_light_background" />
 </RelativeLayout>

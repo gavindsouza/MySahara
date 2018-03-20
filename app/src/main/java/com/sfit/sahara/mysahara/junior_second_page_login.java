@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -22,7 +23,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import static android.content.ContentValues.TAG;
 
-public class junior_second_page_login extends Activity {
+public class junior_second_page_login extends AppCompatActivity {
     FirebaseFirestore db=FirebaseFirestore.getInstance();
 
     @Override

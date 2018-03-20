@@ -26,12 +26,13 @@
         android:id="@+id/etLname"
         android:layout_width="170dp"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/etContact"
+        android:layout_alignBaseline="@+id/etFname"
+        android:layout_alignBottom="@+id/etFname"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="7dp"
+        android:layout_marginEnd="11dp"
+        android:background="@drawable/border"
         android:ems="10"
         android:hint="@string/last_name"
-        android:background="@drawable/border"
         android:inputType="textPersonName" />
 
     <EditText
@@ -39,9 +40,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/etUsername"
-        android:background="@drawable/border"
         android:layout_below="@+id/etFname"
-        android:layout_marginTop="37dp"
+        android:layout_marginTop="26dp"
+        android:background="@drawable/border"
         android:ems="10"
         android:hint="@string/contact_no"
         android:inputType="phone" />
@@ -51,7 +52,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/etPass"
-        android:layout_centerVertical="true"
+        android:layout_below="@+id/etContact"
+        android:layout_marginTop="30dp"
         android:background="@drawable/border"
         android:ems="10"
         android:hint="@string/enter_username"
@@ -84,12 +86,15 @@
 
     <Button
         android:id="@+id/btnSignup"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/etConfirmPass"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="28dp"
-        android:text="@string/signup" />
+        android:layout_below="@+id/etConfirmPass"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="53dp"
+        android:background="@color/cardview_dark_background"
+        android:text="@string/signup"
+        android:textColor="@color/cardview_light_background" />
 
     <TextView
         android:id="@+id/tvWelcome"
