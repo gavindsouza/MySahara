@@ -110,7 +110,7 @@ public class senior_second_page extends AppCompatActivity {
                         });
                     }
                 }
-            });
+            });////////////////
 
             mLocationCallback = new LocationCallback() {
                 @Override
@@ -129,8 +129,8 @@ public class senior_second_page extends AppCompatActivity {
                             }
                         });
                     }
-                };
-            };
+                }
+            };///////////////
 
         } catch (Exception e) {
             Toast.makeText(getApplicationContext(), "Something Happened", Toast.LENGTH_SHORT).show();
