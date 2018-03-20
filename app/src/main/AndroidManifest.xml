@@ -29,7 +29,7 @@
         -->
         <activity
             android:name=".junior_fifth_page_home"
-            android:label="@string/title_activity_normal"
+            android:label="@string/title_activity_Track"
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
         <activity android:name=".first_page" android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
             <intent-filter>
@@ -38,9 +38,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".junior_third_page_details" android:theme="@style/Theme.AppCompat.Light.DarkActionBar"/>
-        <activity android:name=".junior_second_page_login" android:theme="@style/Theme.AppCompat.Light.DarkActionBar"/>
-        <activity android:name=".junior_second_page_signup" android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
+        <activity android:name=".junior_third_page_details" android:label="Senior Details" android:theme="@style/Theme.AppCompat.Light.DarkActionBar"/>
+        <activity android:name=".junior_second_page_login" android:label="@string/title_activity_login" android:theme="@style/Theme.AppCompat.Light.DarkActionBar"/>
+        <activity android:name=".junior_second_page_signup" android:label="@string/title_activity_signUp" android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -56,7 +56,7 @@
         <activity
             android:name=".junior_add_location"
             android:label="@string/title_activity_junior_add_location" android:theme="@style/Theme.AppCompat.Light.DarkActionBar"/>
-        <activity android:name=".senior_second_page" android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
+        <activity android:name=".senior_second_page" android:label="MySahara" android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
         <activity android:name=".junior_second_page_after_login_signup" android:theme="@style/Theme.AppCompat.Light.DarkActionBar"></activity>
     </application>
 
