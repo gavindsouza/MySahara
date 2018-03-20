@@ -21,9 +21,13 @@ import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
@@ -34,16 +38,18 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
 
-public class junior_fifth_page_home extends AppCompatActivity {
+public class junior_fifth_page_home extends AppCompatActivity implements OnMapReadyCallback {
     public float loc=0; //variable for setting geofence distance
+    public double current_latitude,current_longitude;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.junior_fifth_page_home);
+        final SupportMapFragment mapFragment =(SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
 
         final Button notif = findViewById(R.id.notif);
         Button logout = findViewById(R.id.log_out);
-        final TextView code = findViewById(R.id.code);
+        final GoogleMap map = null;
 
         FirebaseFirestore db=FirebaseFirestore.getInstance();
 
@@ -76,8 +82,8 @@ public class junior_fifth_page_home extends AppCompatActivity {
                         Location curr=new Location("A");
                         Location hom=new Location("B");
                         try {
-                            double current_latitude = current.getLatitude();
-                            double current_longitude = current.getLongitude();
+                            current_latitude = current.getLatitude();
+                            current_longitude = current.getLongitude();
                             double home_latitude = home.getLatitude();
                             double home_longitude = home.getLongitude();
 
@@ -85,10 +91,20 @@ public class junior_fifth_page_home extends AppCompatActivity {
                             curr.setLatitude(current_latitude);
                             hom.setLatitude(home_latitude);
                             hom.setLongitude(home_longitude);
+
+                            LatLng latLng = new LatLng(current_latitude, current_longitude);
+                            map.addMarker(new MarkerOptions().position(latLng)).isVisible();
+
+                            float zoomLevel = 16.0f; //This goes up to 21
+                            mapFragment.getMapAsync(junior_fifth_page_home.this);
+                            map.addMarker(new MarkerOptions().position(new LatLng(current_latitude, current_longitude)).title("Marker"));
+                            map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoomLevel));
                         }catch (Exception e){
                             Toast.makeText(getApplicationContext(),"Add generated Code in Senior's Side",Toast.LENGTH_LONG).show();
-                            code.setText("Code:"+codes);
                         }
+                        TextView code = findViewById(R.id.code);
+                        code.setText(new StringBuilder().append("Code:").append(codes).toString());
+
                         Toast.makeText(getApplicationContext(), "Person is "+(curr.distanceTo(hom))+" metres away from set point",Toast.LENGTH_LONG).show();
                         if(loc>100)
                             notif.setEnabled(true);
@@ -133,5 +149,10 @@ public class junior_fifth_page_home extends AppCompatActivity {
         AlertDialog alert = builder.create();
         alert.setTitle("Exit");
         alert.show();
+    }
+
+    @Override
+    public void onMapReady(GoogleMap map) {
+        //map.addMarker(new MarkerOptions().position(new LatLng(21, 72)).title("Marker"));
     }
 }
