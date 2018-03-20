@@ -1,6 +1,5 @@
 package com.sfit.sahara.mysahara;
 
-import android.*;
 import android.app.Fragment;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -25,9 +24,13 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
@@ -38,27 +41,28 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
 
-public class junior_fifth_page_home extends AppCompatActivity {
-      int g;//variable for setting geofence distance
+public class junior_fifth_page_home extends AppCompatActivity implements OnMapReadyCallback {
+    int g;//variable for setting geofence distance
     FusedLocationProviderClient locate;
     LocationRequest mLocationRequest;
     boolean mRequestingLocationUpdates = true;
     LocationCallback mLocationCallback;
+    public double current_latitude,current_longitude;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.junior_fifth_page_home);
+        final SupportMapFragment mapFragment =(SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         locate = LocationServices.getFusedLocationProviderClient(this);
         mLocationRequest = new LocationRequest();
         mLocationRequest.setInterval(10000);
         mLocationRequest.setFastestInterval(5000);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
-
         Button logout = findViewById(R.id.log_out);
-        final TextView code = findViewById(R.id.code);
+        final GoogleMap map = null;
 
-        final FirebaseFirestore db = FirebaseFirestore.getInstance();
+       final FirebaseFirestore db=FirebaseFirestore.getInstance();
 
         logout.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -75,7 +79,7 @@ public class junior_fifth_page_home extends AppCompatActivity {
             }
         });
 
-        try {
+      /*insert here*/  try {
             mLocationCallback = new LocationCallback() {
                 @Override
                 public void onLocationResult(LocationResult locationResult) {
@@ -86,20 +90,20 @@ public class junior_fifth_page_home extends AppCompatActivity {
                         final SharedPreferences data = getSharedPreferences("UserData", MODE_PRIVATE);
                         final String username = data.getString("Username", null);
                         final String codes = data.getString("Code", null);
-
                         db.collection("users").document(username).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                 if (task.isSuccessful()) {
                                     DocumentSnapshot document = task.getResult();
-                                    GeoPoint home = document.getGeoPoint("Home");
-                                    GeoPoint current = document.getGeoPoint("Current");
-                                    Location curr = new Location("A");
-                                    Location hom = new Location("B");
+                                    final GeoPoint home = document.getGeoPoint("Home");
+                                    final GeoPoint current = document.getGeoPoint("Current");
+                                    final Location curr = new Location("A");
+                                    final Location hom = new Location("B");
                                     final String ge = document.getString("Geofence");
                                     try {
-                                        double current_latitude = current.getLatitude();
-                                        double current_longitude = current.getLongitude();
+
+                                        current_latitude = current.getLatitude();
+                                        current_longitude = current.getLongitude();
                                         double home_latitude = home.getLatitude();
                                         double home_longitude = home.getLongitude();
 
@@ -108,10 +112,20 @@ public class junior_fifth_page_home extends AppCompatActivity {
                                         hom.setLatitude(home_latitude);
                                         hom.setLongitude(home_longitude);
                                         g = Integer.parseInt(ge);
+
+                                        LatLng latLng = new LatLng(current_latitude, current_longitude);
+                                        map.addMarker(new MarkerOptions().position(latLng)).isVisible();
+
+                                        float zoomLevel = 16.0f; //This goes up to 21
+                                        mapFragment.getMapAsync(junior_fifth_page_home.this);
+                                        map.addMarker(new MarkerOptions().position(new LatLng(current_latitude, current_longitude)).title("Marker"));
+                                        map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoomLevel));
                                     } catch (Exception e) {
-                                        //Toast.makeText(getApplicationContext(), "Add generated Code in Senior's Side", Toast.LENGTH_LONG).show();
-                                        code.setText("Code:" + codes);
+                                        Toast.makeText(getApplicationContext(), "Add generated Code in Senior's Side", Toast.LENGTH_LONG).show();
                                     }
+                                    TextView code = findViewById(R.id.code);
+                                    code.setText(new StringBuilder().append("Code:").append(codes).toString());
+
                                     Toast.makeText(getApplicationContext(), "Person is " + (curr.distanceTo(hom)) + " metres away from set point", Toast.LENGTH_LONG).show();
                                     if (curr.distanceTo(hom) > g) {
                                         Notification.Builder builder = new Notification.Builder(junior_fifth_page_home.this);
@@ -130,19 +144,12 @@ public class junior_fifth_page_home extends AppCompatActivity {
                             }
                         });
                     }
-                    final SharedPreferences data = getSharedPreferences("UserData", MODE_PRIVATE);
-                    final String codes = data.getString("Code", null);
-                    Toast.makeText(getApplicationContext(), "Add generated Code in Senior's Side", Toast.LENGTH_LONG).show();
-                    code.setText("Code:" + codes);
-
                 }
-
-
             };
-        } catch (Exception e) {
+        }catch (Exception e){} /*outermost try ends here*/
 
-        }
-    }
+
+    } //oncreate ends here
 
     @Override
     protected void onResume() {
@@ -180,7 +187,7 @@ public class junior_fifth_page_home extends AppCompatActivity {
                 null /* Looper */);
     }
 
-    public void onBackPressed(){
+    public void onBackPressed() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Do you want to close this application?");
         builder.setCancelable(false);
@@ -198,5 +205,10 @@ public class junior_fifth_page_home extends AppCompatActivity {
         AlertDialog alert = builder.create();
         alert.setTitle("Exit");
         alert.show();
+    }
+
+    @Override
+    public void onMapReady(GoogleMap map) {
+        //map.addMarker(new MarkerOptions().position(new LatLng(21, 72)).title("Marker"));
     }
 }
