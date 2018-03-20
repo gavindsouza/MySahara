@@ -109,7 +109,7 @@ public class junior_fifth_page_home extends AppCompatActivity {
                                         hom.setLongitude(home_longitude);
                                         g = Integer.parseInt(ge);
                                     } catch (Exception e) {
-                                        Toast.makeText(getApplicationContext(), "Add generated Code in Senior's Side", Toast.LENGTH_LONG).show();
+                                        //Toast.makeText(getApplicationContext(), "Add generated Code in Senior's Side", Toast.LENGTH_LONG).show();
                                         code.setText("Code:" + codes);
                                     }
                                     Toast.makeText(getApplicationContext(), "Person is " + (curr.distanceTo(hom)) + " metres away from set point", Toast.LENGTH_LONG).show();
@@ -130,11 +130,17 @@ public class junior_fifth_page_home extends AppCompatActivity {
                             }
                         });
                     }
+                    final SharedPreferences data = getSharedPreferences("UserData", MODE_PRIVATE);
+                    final String codes = data.getString("Code", null);
+                    Toast.makeText(getApplicationContext(), "Add generated Code in Senior's Side", Toast.LENGTH_LONG).show();
+                    code.setText("Code:" + codes);
+
                 }
 
 
             };
         } catch (Exception e) {
+
         }
     }
 

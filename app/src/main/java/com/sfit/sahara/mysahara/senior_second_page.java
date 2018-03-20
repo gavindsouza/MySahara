@@ -101,6 +101,7 @@ public class senior_second_page extends AppCompatActivity {
                 public void onSuccess(Location location) {
                     if (location != null) {
                         Map<String, Object> m = new HashMap<>();
+
                         m.put("Current", new GeoPoint(location.getLatitude(), location.getLongitude()));
                         db.collection("users").document(user).update(m).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
@@ -125,10 +126,11 @@ public class senior_second_page extends AppCompatActivity {
                         db.collection("users").document(user).update(m).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                Toast.makeText(getApplicationContext(), "location is updated", Toast.LENGTH_LONG).show();
+                                //Toast.makeText(getApplicationContext(), "location is updated", Toast.LENGTH_LONG).show();
                             }
                         });
                     }
+                    Toast.makeText(getApplicationContext(), "location is updated", Toast.LENGTH_LONG).show();
                 }
             };///////////////
 

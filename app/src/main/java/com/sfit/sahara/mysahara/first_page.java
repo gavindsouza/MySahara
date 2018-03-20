@@ -42,8 +42,9 @@ public class first_page extends AppCompatActivity {
         btnSubmit = findViewById(R.id.btnSubmit);
 
         try {
-            Toast.makeText(getApplicationContext(), data.getString("Code", null), Toast.LENGTH_LONG).show();
+
             if ((!data.getString("Code", null).isEmpty() || data.getString("Code", null) == "")&&data.getString("Type",null).equals("Senior")) {
+                Toast.makeText(getApplicationContext(), data.getString("Code", null), Toast.LENGTH_LONG).show();
                 startActivity(new Intent(first_page.this, senior_second_page.class));
                 finish();
             }

@@ -14,6 +14,8 @@
         android:layout_alignStart="@+id/imgbtnCall"
         android:layout_below="@+id/imgbtnCall"
         android:layout_marginTop="54dp"
+        android:background="@color/cardview_dark_background"
+        android:theme="@style/CardView.Dark"
         app:srcCompat="@drawable/mess" />
 
     <ImageButton
@@ -23,6 +25,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="47dp"
+        android:background="@color/cardview_dark_background"
         app:srcCompat="@drawable/call" />
 
     <Button
