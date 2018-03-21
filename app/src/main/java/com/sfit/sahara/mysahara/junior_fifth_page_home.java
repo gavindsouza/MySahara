@@ -8,10 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.location.Address;
-import android.location.Geocoder;
 import android.location.Location;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -44,14 +41,8 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
 
-import java.util.List;
-import java.util.Locale;
-
 public class junior_fifth_page_home extends AppCompatActivity implements OnMapReadyCallback {
     int g;//variable for setting geofence distance
-     String addr;
-   //private Geocoder geocoder = new Geocoder(this,Locale.getDefault());
-
     FusedLocationProviderClient locate;
     LocationRequest mLocationRequest;
     boolean mRequestingLocationUpdates = true;
@@ -121,24 +112,10 @@ public class junior_fifth_page_home extends AppCompatActivity implements OnMapRe
                                         hom.setLatitude(home_latitude);
                                         hom.setLongitude(home_longitude);
                                         g = Integer.parseInt(ge);
-                                        //List<Address> yourAddressses;
-                                        //yourAddressses = geocoder.getFromLocation(current_latitude,current_longitude,1);
-                        /*if (yourAddressses.size()>1){
-                             addr = yourAddressses.get(0).getLocality();
-                        }*/
-                                        final Button address = findViewById(R.id.address);
-                                        address.setText("Latitude:"+Double.toString(current_latitude)+"\nLongitude:"+Double.toString(current_longitude));
-                                        address.setOnClickListener(new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View v) {
-                                                Intent i=new Intent(Intent.ACTION_VIEW, Uri.parse(String.format(Locale.ENGLISH,"geo:%f,%f",current_latitude,current_longitude)));
-                                                startActivity(i);
-                                            }
-                                        });
+
                                     } catch (Exception e) {
                                         Toast.makeText(getApplicationContext(), "Add generated Code in Senior's Side", Toast.LENGTH_LONG).show();
                                     }
-
                                     TextView code = findViewById(R.id.code);
                                     code.setText(new StringBuilder().append("Code:").append(codes).toString());
 
