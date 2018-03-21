@@ -12,6 +12,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -41,7 +42,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
 
-public class junior_fifth_page_home extends AppCompatActivity implements OnMapReadyCallback {
+public class junior_fifth_page_home extends FragmentActivity implements OnMapReadyCallback {
     int g;//variable for setting geofence distance
     FusedLocationProviderClient locate;
     LocationRequest mLocationRequest;
@@ -99,9 +100,7 @@ public class junior_fifth_page_home extends AppCompatActivity implements OnMapRe
                                     final GeoPoint current = document.getGeoPoint("Current");
                                     final Location curr = new Location("A");
                                     final Location hom = new Location("B");
-                                    final String ge = document.getString("Geofence");
                                     try {
-
                                         current_latitude = current.getLatitude();
                                         current_longitude = current.getLongitude();
                                         double home_latitude = home.getLatitude();
@@ -111,7 +110,6 @@ public class junior_fifth_page_home extends AppCompatActivity implements OnMapRe
                                         curr.setLatitude(current_latitude);
                                         hom.setLatitude(home_latitude);
                                         hom.setLongitude(home_longitude);
-                                        g = Integer.parseInt(ge);
 
                                     } catch (Exception e) {
                                         Toast.makeText(getApplicationContext(), "Add generated Code in Senior's Side", Toast.LENGTH_LONG).show();
@@ -120,6 +118,8 @@ public class junior_fifth_page_home extends AppCompatActivity implements OnMapRe
                                     code.setText(new StringBuilder().append("Code:").append(codes).toString());
 
                                     Toast.makeText(getApplicationContext(), "Person is " + (curr.distanceTo(hom)) + " metres away from set point", Toast.LENGTH_LONG).show();
+                                    String ge = document.getString("Geofence");
+                                    g = Integer.parseInt(ge);
                                     if (curr.distanceTo(hom) > g) {
                                         Notification.Builder builder = new Notification.Builder(junior_fifth_page_home.this);
                                         Intent intent = new Intent(getApplicationContext(), junior_fifth_page_home.class);
