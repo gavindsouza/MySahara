@@ -52,12 +52,15 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyD_oTVIPOs7ok9o0ku-5A_eflReE_jY3qM" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
 
         <activity
             android:name=".junior_add_location"
             android:label="@string/title_activity_junior_add_location" android:theme="@style/Theme.AppCompat.Light.DarkActionBar"/>
         <activity android:name=".senior_second_page" android:label="MySahara" android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
-        <activity android:name=".junior_second_page_after_login_signup" android:theme="@style/Theme.AppCompat.Light.DarkActionBar"></activity>
+        <activity android:name=".junior_second_page_after_login_signup" android:theme="@style/Theme.AppCompat.Light.DarkActionBar"/>
     </application>
 
 </manifest>

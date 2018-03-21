@@ -52,7 +52,7 @@ public class junior_fifth_page_home extends AppCompatActivity implements OnMapRe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.junior_fifth_page_home);
-        final SupportMapFragment mapFragment =(SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+
         locate = LocationServices.getFusedLocationProviderClient(this);
         mLocationRequest = new LocationRequest();
         mLocationRequest.setInterval(10000);
@@ -60,7 +60,6 @@ public class junior_fifth_page_home extends AppCompatActivity implements OnMapRe
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
         Button logout = findViewById(R.id.log_out);
-        final GoogleMap map = null;
 
        final FirebaseFirestore db=FirebaseFirestore.getInstance();
 
@@ -79,7 +78,7 @@ public class junior_fifth_page_home extends AppCompatActivity implements OnMapRe
             }
         });
 
-      /*insert here*/  try {
+      try {
             mLocationCallback = new LocationCallback() {
                 @Override
                 public void onLocationResult(LocationResult locationResult) {
@@ -90,6 +89,7 @@ public class junior_fifth_page_home extends AppCompatActivity implements OnMapRe
                         final SharedPreferences data = getSharedPreferences("UserData", MODE_PRIVATE);
                         final String username = data.getString("Username", null);
                         final String codes = data.getString("Code", null);
+
                         db.collection("users").document(username).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -113,13 +113,6 @@ public class junior_fifth_page_home extends AppCompatActivity implements OnMapRe
                                         hom.setLongitude(home_longitude);
                                         g = Integer.parseInt(ge);
 
-                                        LatLng latLng = new LatLng(current_latitude, current_longitude);
-                                        map.addMarker(new MarkerOptions().position(latLng)).isVisible();
-
-                                        float zoomLevel = 16.0f; //This goes up to 21
-                                        mapFragment.getMapAsync(junior_fifth_page_home.this);
-                                        map.addMarker(new MarkerOptions().position(new LatLng(current_latitude, current_longitude)).title("Marker"));
-                                        map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoomLevel));
                                     } catch (Exception e) {
                                         Toast.makeText(getApplicationContext(), "Add generated Code in Senior's Side", Toast.LENGTH_LONG).show();
                                     }
@@ -133,7 +126,7 @@ public class junior_fifth_page_home extends AppCompatActivity implements OnMapRe
                                         PendingIntent pendingIntent = PendingIntent.getActivity(junior_fifth_page_home.this, 01, intent, 0);
                                         builder.setContentIntent(pendingIntent);
                                         builder.setDefaults(Notification.DEFAULT_ALL);
-                                        builder.setContentTitle("User has left geofence");
+                                        builder.setContentTitle("User has left geofence\nThey are "+curr.distanceTo(hom)+" metres from home");
                                         builder.setSmallIcon(R.mipmap.ic_launcher);
                                         builder.setContentText("check on your loved one");
                                         builder.setAutoCancel(true);
@@ -210,5 +203,15 @@ public class junior_fifth_page_home extends AppCompatActivity implements OnMapRe
     @Override
     public void onMapReady(GoogleMap map) {
         //map.addMarker(new MarkerOptions().position(new LatLng(21, 72)).title("Marker"));
+        LatLng latLng = new LatLng(21.11,72.11);
+        map.addMarker(new MarkerOptions().position(latLng)).isVisible();
+
+        float zoomLevel = 16.0f; //This goes up to 21
+
+        map.addMarker(new MarkerOptions().position(new LatLng(current_latitude, current_longitude)).title("Marker"));
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoomLevel));
+
+        SupportMapFragment mapFragment =(SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(junior_fifth_page_home.this);
     }
 }
