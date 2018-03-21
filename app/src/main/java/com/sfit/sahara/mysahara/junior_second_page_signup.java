@@ -145,7 +145,7 @@ public class junior_second_page_signup extends AppCompatActivity {
                 edit.putString("Senior First Name","xabsttc");
                 edit.putString("Senior Last Name","");
                 edit.apply();
-                startActivity(new Intent(junior_second_page_signup.this,junior_second_page_login.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK));
+                startActivity(new Intent(junior_second_page_signup.this,junior_third_page_details.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK));
                 finish();
             }
         }).addOnFailureListener(new OnFailureListener() {
