@@ -126,7 +126,7 @@ public class junior_second_page_signup extends AppCompatActivity {
         m.put("Contact", contact_num);
         m.put("Username", user);
         m.put("Password", pass);
-        m.put("Senior First Name","" );
+        m.put("Senior First Name","xabsttc" );
         m.put("Senior Last Name","" );
         m.put("Code", "");
         db.collection("users").document(user).set(m).addOnSuccessListener(new OnSuccessListener<Void>() {
