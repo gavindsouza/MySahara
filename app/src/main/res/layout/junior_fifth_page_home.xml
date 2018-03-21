@@ -66,30 +66,16 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true" />
 
-    <TextView
-        android:id="@+id/add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="19dp"
-        android:layout_marginTop="13dp"
-        android:fontFamily="casual"
-        android:minHeight="100dp"
-        android:minWidth="200dp"
-        android:text="TextView"
-        android:textSize="18sp" />
-
     <Button
         android:id="@+id/address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/log_out"
-        android:layout_alignBottom="@+id/log_out"
-        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="18dp"
+        android:layout_marginTop="20dp"
+        android:layout_toStartOf="@+id/log_out"
         android:background="@drawable/cast_mini_controller_progress_drawable"
-        android:minHeight="100dp"
-        android:minWidth="200dp"
-        android:text="Button"
-        android:textColor="@color/cardview_shadow_end_color" />
+        android:minHeight="100sp"
+        android:minWidth="200sp"
+        android:text="Current Location" />
 </RelativeLayout>

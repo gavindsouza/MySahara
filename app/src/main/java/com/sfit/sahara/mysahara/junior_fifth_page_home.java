@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -40,6 +41,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
+
+import java.util.Locale;
 
 public class junior_fifth_page_home extends AppCompatActivity implements OnMapReadyCallback {
     int g;//variable for setting geofence distance
@@ -112,6 +115,18 @@ public class junior_fifth_page_home extends AppCompatActivity implements OnMapRe
                                         hom.setLatitude(home_latitude);
                                         hom.setLongitude(home_longitude);
                                         g = Integer.parseInt(ge);
+
+
+                                        final Button address = findViewById(R.id.address);
+                                        address.setEnabled(true);
+                                        address.setText("Latitude:"+Double.toString(current_latitude)+"\nLongitude:"+Double.toString(current_longitude));
+
+                                        address.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(String.format(Locale.ENGLISH,"geo:%f,%f",current_latitude,current_longitude))));
+                                            }
+                                        });
 
                                     } catch (Exception e) {
                                         Toast.makeText(getApplicationContext(), "Add generated Code in Senior's Side", Toast.LENGTH_LONG).show();
