@@ -124,7 +124,8 @@ public class junior_fifth_page_home extends AppCompatActivity implements OnMapRe
                                         address.setOnClickListener(new View.OnClickListener() {
                                             @Override
                                             public void onClick(View view) {
-                                                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(String.format(Locale.ENGLISH,"geo:%f,%f",current_latitude,current_longitude))));
+                                                //startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(String.format(Locale.ENGLISH,"geo:%f,%f",current_latitude,current_longitude))));
+                                                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/maps/search/?api=1&query="+Double.toString(current_latitude)+","+Double.toString(current_longitude))));
                                             }
                                         });
 
