@@ -1,6 +1,5 @@
 package com.sfit.sahara.mysahara;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -43,7 +42,7 @@ public class junior_second_page_login extends AppCompatActivity {
                 startActivity(new Intent(junior_second_page_login.this, junior_second_page_after_login_signup.class));
                 finish();
             }
-                Toast.makeText(getApplicationContext(), um + pass, Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), um + pass, Toast.LENGTH_LONG).show();
         }catch (Exception e){}
 
         password.addTextChangedListener(new TextWatcher() {

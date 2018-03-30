@@ -1,6 +1,5 @@
 package com.sfit.sahara.mysahara;
 
-import android.app.Fragment;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -16,33 +15,28 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.MapView;
-import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
-
-import java.util.Locale;
 
 public class junior_fifth_page_home extends AppCompatActivity implements OnMapReadyCallback {
     int g;//variable for setting geofence distance
@@ -58,13 +52,14 @@ public class junior_fifth_page_home extends AppCompatActivity implements OnMapRe
 
         locate = LocationServices.getFusedLocationProviderClient(this);
         mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(10000);
-        mLocationRequest.setFastestInterval(5000);
+        mLocationRequest.setInterval(100000);
+        mLocationRequest.setFastestInterval(50000);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
         Button logout = findViewById(R.id.log_out);
 
        final FirebaseFirestore db=FirebaseFirestore.getInstance();
+       final WebView web = findViewById(R.id.webview);
 
         logout.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -119,7 +114,7 @@ public class junior_fifth_page_home extends AppCompatActivity implements OnMapRe
 
                                         final Button address = findViewById(R.id.address);
                                         address.setEnabled(true);
-                                        address.setText("Latitude:"+Double.toString(current_latitude)+"\nLongitude:"+Double.toString(current_longitude));
+                                        //address.setText("Latitude:"+Double.toString(current_latitude)+"\nLongitude:"+Double.toString(current_longitude));
 
                                         address.setOnClickListener(new View.OnClickListener() {
                                             @Override
@@ -128,7 +123,9 @@ public class junior_fifth_page_home extends AppCompatActivity implements OnMapRe
                                                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/maps/search/?api=1&query="+Double.toString(current_latitude)+","+Double.toString(current_longitude))));
                                             }
                                         });
-
+                                        WebSettings setting = web.getSettings();
+                                        setting.setJavaScriptEnabled(true);
+                                        web.loadUrl("https://www.google.com/maps/search/?api=1&query="+Double.toString(current_latitude)+","+Double.toString(current_longitude));
                                     } catch (Exception e) {
                                         Toast.makeText(getApplicationContext(), "Add generated Code in Senior's Side", Toast.LENGTH_LONG).show();
                                     }
