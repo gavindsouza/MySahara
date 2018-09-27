@@ -1,5 +1,6 @@
 # MySahara
 *"A GPS Based Tracking System"*
+
 [![Build Status](https://travis-ci.org/gavindsouza/MySahara.svg?branch=master)](https://travis-ci.org/gavindsouza/MySahara)
 
 MySahara is an Android Application to communicate at the tracker (family member) and the trackee (senior) end, with emergency call / messaging options as well as get directions to the trackee. Notifications generated if the trackee exits the set geofence.
