@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:maxWidth="200dp"
+    android:minWidth="200dp"
+    android:noHistory="true"
+    tools:context="com.sfit.sahara.mysahara.junior_second_page_signup">
+
+
+    <EditText
+        android:id="@+id/etFname"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/etContact"
+        android:layout_below="@+id/tvWelcome"
+        android:layout_marginTop="29dp"
+        android:ems="10"
+        android:background="@drawable/border"
+        android:hint="@string/first_name"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/etLname"
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/etFname"
+        android:layout_alignBottom="@+id/etFname"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="11dp"
+        android:background="@drawable/border"
+        android:ems="10"
+        android:hint="@string/last_name"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/etContact"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/etUsername"
+        android:layout_below="@+id/etFname"
+        android:layout_marginTop="26dp"
+        android:background="@drawable/border"
+        android:ems="10"
+        android:hint="@string/contact_no"
+        android:inputType="phone" />
+
+    <EditText
+        android:id="@+id/etUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/etPass"
+        android:layout_below="@+id/etContact"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/border"
+        android:ems="10"
+        android:hint="@string/enter_username"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/etPass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/etUsername"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="@string/enter_password"
+        android:background="@drawable/border"
+        android:inputType="textPassword" />
+
+    <EditText
+        android:id="@+id/etConfirmPass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/etPass"
+        android:layout_below="@+id/etPass"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:background="@drawable/border"
+        android:inputType="textPassword"
+        android:hint="@string/re_enter_password"/>
+
+    <Button
+        android:id="@+id/btnSignup"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etConfirmPass"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="53dp"
+        android:background="@color/cardview_dark_background"
+        android:text="@string/signup"
+        android:textColor="@color/cardview_light_background" />
+
+    <TextView
+        android:id="@+id/tvWelcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/etFname"
+        android:layout_marginStart="49dp"
+        android:layout_marginTop="22dp"
+        android:text="@string/welcome_to_sahara"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+</RelativeLayout>

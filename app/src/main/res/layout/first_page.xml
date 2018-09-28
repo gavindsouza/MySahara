@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:noHistory="true"
+    tools:context="com.sfit.sahara.mysahara.first_page">
+
+    <TextView
+        android:id="@+id/or"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="@string/or"
+        android:textSize="40sp" />
+
+    <EditText
+        android:id="@+id/etAddCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/or"
+        android:layout_marginEnd="70dp"
+        android:layout_marginTop="54dp"
+        android:ems="10"
+        android:hint="@string/add_code"
+        android:inputType="number" />
+
+    <Button
+        android:id="@+id/btnSubmit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etAddCode"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="14dp"
+        android:background="@color/cardview_dark_background"
+        android:text="@string/submit"
+        android:textColor="@color/cardview_light_background" />
+
+    <Button
+        android:id="@+id/btnlogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/btnSubmit"
+        android:layout_marginTop="30dp"
+        android:background="@color/cardview_dark_background"
+        android:text="@string/gotologin"
+        android:textColor="@color/cardview_light_background" />
+
+    <Button
+        android:id="@+id/btnsignup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/btnlogin"
+        android:layout_below="@+id/btnlogin"
+        android:layout_marginTop="53dp"
+        android:background="@color/cardview_dark_background"
+        android:text="@string/gotosignup"
+        android:textColor="@color/cardview_light_background" />
+</RelativeLayout>
