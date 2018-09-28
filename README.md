@@ -1,4 +1,4 @@
-# MySahara <img src="app/src/main/res/drawable/logo.png" alt="logo" width="35"/> 👴🏻 👵
+# MySahara <img src="app/src/main/res/drawable/logo.png" alt="logo" width="35"/> 
 *"A GPS Based Tracking System"*
 
 [![Build Status](https://travis-ci.org/gavindsouza/MySahara.svg?branch=master)](https://travis-ci.org/gavindsouza/MySahara)
