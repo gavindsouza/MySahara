@@ -131,9 +131,9 @@ public class junior_second_page_signup extends AppCompatActivity {
         db.collection("users").document(user).set(m).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                Toast success = Toast.makeText(getApplicationContext(),"Account Created, Login now",Toast.LENGTH_LONG);
-                success.setGravity(Gravity.BOTTOM|Gravity.CENTER,0,0);
-                success.show();
+               // Toast success = Toast.makeText(getApplicationContext(),"Account Created, Login now",Toast.LENGTH_LONG);
+                //success.setGravity(Gravity.BOTTOM|Gravity.CENTER,0,0);
+                //success.show();
                 SharedPreferences userdata = getSharedPreferences("UserData", Context.MODE_PRIVATE);
                 SharedPreferences.Editor edit = userdata.edit();
                 edit.putString("Username",user);

@@ -1,6 +1,7 @@
 package com.sfit.sahara.mysahara;
 
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.DialogInterface;
@@ -9,6 +10,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -51,7 +53,7 @@ public class junior_fifth_page_home extends AppCompatActivity implements OnMapRe
         setContentView(R.layout.junior_fifth_page_home);
 
         locate = LocationServices.getFusedLocationProviderClient(this);
-        mLocationRequest = new LocationRequest();
+       mLocationRequest = LocationRequest.create();
         mLocationRequest.setInterval(100000);
         mLocationRequest.setFastestInterval(50000);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
@@ -132,8 +134,8 @@ public class junior_fifth_page_home extends AppCompatActivity implements OnMapRe
                                     TextView code = findViewById(R.id.code);
                                     code.setText(new StringBuilder().append("Code:").append(codes).toString());
 
-                                    Toast.makeText(getApplicationContext(), "Person is " + (curr.distanceTo(hom)) + " metres away from set point", Toast.LENGTH_LONG).show();
-                                    if (curr.distanceTo(hom) > g) {
+                                    Toast.makeText(getApplicationContext(), "Person is " + (curr.distanceTo(hom)) + " metres away from home", Toast.LENGTH_LONG).show();
+                                    if (curr.distanceTo(hom) > g ) {
                                         Notification.Builder builder = new Notification.Builder(junior_fifth_page_home.this);
                                         Intent intent = new Intent(getApplicationContext(), junior_fifth_page_home.class);
                                         PendingIntent pendingIntent = PendingIntent.getActivity(junior_fifth_page_home.this, 01, intent, 0);
@@ -144,7 +146,13 @@ public class junior_fifth_page_home extends AppCompatActivity implements OnMapRe
                                         builder.setContentText("check on your loved one");
                                         builder.setAutoCancel(true);
                                         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-                                        notificationManager.notify(001, builder.build());
+                                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                            NotificationChannel channel = new NotificationChannel("my_channel_01",
+                                                    "Channel human readable title",
+                                                    NotificationManager.IMPORTANCE_DEFAULT);
+                                            notificationManager.createNotificationChannel(channel);
+                                        }
+                                        notificationManager.notify(000, builder.build());
                                     }
                                 }
                             }

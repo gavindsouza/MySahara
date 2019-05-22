@@ -12,7 +12,7 @@
     <string name="username">Username</string>
     <!--string name="app_name">Firebase Authentication</string-->
 
-    <string name="gotologin">Login</string>
+    <string name="gotologin"> Login </string>
     <string name="gotosignup">Signup</string>
     <string name="first_name">First name</string>
     <string name="last_name">Last name</string>
